@@ -36,23 +36,25 @@ export const LeaderBoardPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Survival Island 🏝️</title>
-        <meta name="description" content="Survival Island" />
+        <title>0xparadise 🏝️</title>
+        <meta name="description" content="0xparadise" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
         <MainLayout>
-          <button className="border px-2" onClick={() => mock()}>
-            add
-          </button>
-          <button className="border px-2" onClick={() => removeMock()}>
-            remove
-          </button>
-          <div className="flex justify-center">
-            <h1 className="text-xl font-semibold">Leaderboard</h1>
-          </div>
-          <div className="p-4 px-20">
-            <ListRank data={items} />
+          <div className="p-4">
+            <button className="border px-2" onClick={() => mock()}>
+              add
+            </button>
+            <button className="border px-2" onClick={() => removeMock()}>
+              remove
+            </button>
+            <div className="flex justify-center">
+              <h1 className="text-xl font-semibold">Leaderboard</h1>
+            </div>
+            <div className="px-20">
+              <ListRank data={items} />
+            </div>
           </div>
         </MainLayout>
       </main>

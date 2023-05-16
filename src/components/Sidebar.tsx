@@ -23,6 +23,9 @@ export const SideBar = () => {
           <Link href="https://twitter.com/Tetration_Lab" target="_blank" className="rounded-md border border-black p-2">
             Twitter
           </Link>
+          <Link href="/game" className="rounded-md border border-black p-2">
+            Game
+          </Link>
         </div>
         <div className="p-2">
           <div>© 2023 Tetration lab.</div>

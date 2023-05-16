@@ -13,7 +13,7 @@ interface Item {
   score: number
 }
 
-export const LeaderBoardPage: NextPage = () => {
+export const AccountPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
   const mock = () => {
@@ -41,7 +41,7 @@ export const LeaderBoardPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
-        <MainLayout>
+        <MainLayout heroSection={<>Account Page</>}>
           <div className="p-4">
             <div className="relative">
               <div className="abosolute">

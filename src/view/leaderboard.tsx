@@ -47,7 +47,7 @@ export const LeaderBoardPage: NextPage = () => {
           <div className="p-4">
             <div className="relative">
               <div className="abosolute">
-                test auth - > {(isSignedIn&&secretMessage)&& secretMessage}
+                test auth {isSignedIn && secretMessage && secretMessage}
                 <button className="border px-2" onClick={() => mock()}>
                   add
                 </button>

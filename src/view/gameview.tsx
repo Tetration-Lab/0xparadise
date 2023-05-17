@@ -2,6 +2,7 @@ import { type NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
+const emojiList = ['🙅‍♂️', '🏃‍♂️', '👩‍🦰']
 export const GameViewPage: NextPage = () => {
   return (
     <>
@@ -51,6 +52,8 @@ export const GameViewPage: NextPage = () => {
               {/* mock array 100 item */}
               {Array.from(Array(100).keys()).map((item) => (
                 <li className="bg-white py-2" key={item}>
+                  {/* random emoji */}
+                  {emojiList[Math.floor(Math.random() * emojiList.length)]}
                   {item}
                 </li>
               ))}

@@ -5,6 +5,7 @@ import { api } from '~/utils/api'
 import { useState } from 'react'
 import { ListRank } from '../components/ListRank'
 import { MainLayout } from '../components/MainLayout'
+import { useAuth } from '@clerk/nextjs'
 
 interface Item {
   id: number
@@ -16,6 +17,8 @@ interface Item {
 export const LeaderBoardPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
+  const { isSignedIn } = useAuth()
+  const { data: secretMessage } = api.example.getSecretMessage.useQuery(undefined, { enabled: isSignedIn })
   const mock = () => {
     const random = Math.floor(Math.random() * 100)
     const mockItem = {
@@ -44,6 +47,7 @@ export const LeaderBoardPage: NextPage = () => {
           <div className="p-4">
             <div className="relative">
               <div className="abosolute">
+                test auth - > {(isSignedIn&&secretMessage)&& secretMessage}
                 <button className="border px-2" onClick={() => mock()}>
                   add
                 </button>

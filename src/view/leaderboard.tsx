@@ -32,7 +32,6 @@ export const LeaderBoardPage: NextPage = () => {
     const newItems = items.slice(0, items.length - 1)
     setItems(newItems)
   }
-
   return (
     <>
       <Head>
@@ -56,6 +55,7 @@ export const LeaderBoardPage: NextPage = () => {
             <div className="flex justify-center">
               <h1 className="text-xl font-semibold">Leaderboard</h1>
             </div>
+            <div className="flex justify-center"></div>
             <div className="px-20">
               <ListRank data={items} />
             </div>

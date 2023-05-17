@@ -20,18 +20,19 @@ export const ListRank: React.FC<Props> = ({ data }) => {
   return (
     <>
       <div className="mb-2 grid w-full grid-cols-3 bg-gray-100 py-2 text-lg shadow">
-        {headers.map((header) => {
+        {headers.map((header, index) => {
           return (
-            <>
-              <div className="text-center">{header}</div>
-            </>
+            <div className="text-center" key={`${header}:${index}`}>
+              {header}
+            </div>
           )
         })}
       </div>
       <ul ref={parent} className="w-full">
-        {data.map((item) => {
+        {data.map((item, index) => {
+          console.log(item.id)
           return (
-            <li className="my-4 grid w-full grid-cols-3 py-1 shadow" key={item.id}>
+            <li className="my-4 grid w-full grid-cols-3 py-1 shadow" key={`${item.id}:${index}`}>
               <div className="text-center">{item.name}</div>
               <div className="text-center">{item.botName}</div>
               <div className="text-center">{item.score}</div>

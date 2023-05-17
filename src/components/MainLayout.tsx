@@ -1,3 +1,4 @@
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs'
 import { SideBar } from './Sidebar'
 
 export interface Props {
@@ -6,10 +7,27 @@ export interface Props {
 }
 
 const MockSection = () => {
+  const { user, isSignedIn } = useUser()
   return (
     <>
       <div className="absolute right-0 top-0 pr-4 pt-4">
-        <button className="rounded-full border border-black p-2 px-4">Connect Wallet</button>
+        {!isSignedIn && (
+          <button className="rounded-full border border-black p-2 px-4">
+            <SignInButton>Connect Wallet</SignInButton>
+          </button>
+        )}
+        {isSignedIn && (
+          <UserButton
+            appearance={{
+              elements: {
+                userButtonAvatarBox: {
+                  width: 32,
+                  height: 32,
+                },
+              },
+            }}
+          />
+        )}
       </div>
       <div className="absolute bottom-0 w-1/2 pl-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam omnis, repellat, eligendi deserunt quas odit

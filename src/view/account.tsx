@@ -56,9 +56,7 @@ export const AccountPage: NextPage = () => {
             <div className="flex justify-center">
               <h1 className="text-xl font-semibold">Leaderboard</h1>
             </div>
-            <div className="px-20">
-              <ListRank data={items} />
-            </div>
+            <div className="px-20"></div>
           </div>
         </MainLayout>
       </main>

@@ -31,15 +31,17 @@ export const GameViewPage: NextPage = () => {
               <div className="flex items-center justify-center">Personal Building</div>
             </div>
           </div>
-          <div className="h-[30%] flex-shrink-0 overflow-y-auto bg-gray-100">
-            <ul className="space-y-2 px-2">
-              {/* mock array 100 item */}
-              {Array.from(Array(100).keys()).map((item) => (
-                <li className="bg-white py-2" key={item}>
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <div className="h-[30%] flex-shrink-0 overflow-y-auto bg-gray-200">
+            <div className="px-2">
+              <ul className="my-2 space-y-2">
+                {/* mock array 100 item */}
+                {Array.from(Array(100).keys()).map((item) => (
+                  <li className="bg-white py-2" key={item}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
         <div className="w-64 bg-gray-100">

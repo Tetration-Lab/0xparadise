@@ -3,8 +3,11 @@ import Head from 'next/head'
 
 import { api } from '~/utils/api'
 import { useState } from 'react'
-import { ListRank } from '../components/ListRank'
-import { MainLayout } from '../components/MainLayout'
+import { ListRank } from '../../components/ListRank'
+import { MainLayout } from '../../components/MainLayout'
+
+import { createColumnHelper } from '@tanstack/react-table'
+import { SummaryTable } from './SummaryTable'
 
 interface Item {
   id: number
@@ -12,7 +15,6 @@ interface Item {
   botName: string
   score: number
 }
-
 export const AccountPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
@@ -43,20 +45,15 @@ export const AccountPage: NextPage = () => {
       <main className="">
         <MainLayout heroSection={<>Account Page</>}>
           <div className="p-4">
-            <div className="relative">
-              <div className="abosolute">
-                <button className="border px-2" onClick={() => mock()}>
-                  add
-                </button>
-                <button className="border px-2" onClick={() => removeMock()}>
-                  remove
-                </button>
-              </div>
+            <div className="mb-4">My Survivors + Create New</div>
+            <div className="space-y-4">
+              {Array.from(Array(10).keys()).map((item) => (
+                <>
+                  <div className="mb-2 text-lg">BOT {item}</div>
+                  <SummaryTable />
+                </>
+              ))}
             </div>
-            <div className="flex justify-center">
-              <h1 className="text-xl font-semibold">Leaderboard</h1>
-            </div>
-            <div className="px-20"></div>
           </div>
         </MainLayout>
       </main>

@@ -24,19 +24,25 @@ export const syncUserRouter = createTRPCRouter({
           },
         })
         if (userExists) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: 'User already exists',
+          await ctx.prisma.syncUser.update({
+            where: {
+              id: userExists.id,
+            },
+            data: {
+              profileImageUrl: input.user.profileImageUrl,
+              wallets: input.user.wallets,
+            },
           })
+          return
         }
-        const user = await ctx.prisma.syncUser.create({
+        await ctx.prisma.syncUser.create({
           data: {
             userID: input.user.clerkUserID,
             profileImageUrl: input.user.profileImageUrl,
             wallets: input.user.wallets,
           },
         })
-        return user
+        return
       } catch (e) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',

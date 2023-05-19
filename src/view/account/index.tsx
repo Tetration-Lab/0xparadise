@@ -8,6 +8,7 @@ import { MainLayout } from '../../components/MainLayout'
 
 import { createColumnHelper } from '@tanstack/react-table'
 import { SummaryTable } from './SummaryTable'
+import Link from 'next/link'
 
 interface Item {
   id: number
@@ -45,7 +46,13 @@ export const AccountPage: NextPage = () => {
       <main className="">
         <MainLayout heroSection={<>Account Page</>}>
           <div className="p-4">
-            <div className="mb-4">My Survivors + Create New</div>
+            <div className="mb-4 space-x-2">
+              <span>My Survivors</span>
+              <span>+</span>
+              <Link href="/create-survival">
+                <button className="rounded-lg border px-4 py-2">Create New</button>
+              </Link>
+            </div>
             <div className="space-y-4">
               {Array.from(Array(10).keys()).map((item) => (
                 <>

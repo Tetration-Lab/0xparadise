@@ -54,7 +54,7 @@ export const MainLayout: React.FC<Props> = ({ children, heroSection }) => {
 
           <div style={{ height: '250px' }}>{heroSection ? heroSection : <HeroSection />}</div>
           {/* content */}
-          <div>{children}</div>
+          <div >{children}</div>
         </div>
       </div>
     </>

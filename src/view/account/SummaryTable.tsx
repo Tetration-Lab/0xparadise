@@ -29,7 +29,7 @@ const columnHelper = createColumnHelper<SummaryDataProps>()
 
 const columns = [
   columnHelper.accessor('botImageUrl', {
-    cell: (info) => info.getValue(),
+    cell: (info) => <img style={{ width: '50px', height: '50px' }} src={info.getValue()} />,
     header: () => <span></span>,
   }),
   columnHelper.accessor((row) => row.version, {
@@ -39,27 +39,41 @@ const columns = [
   }),
   columnHelper.accessor('deployOn', {
     cell: (info) => info.getValue(),
-    header: () => 'deployOn',
+    header: () => <span>Deployed On</span>,
   }),
   columnHelper.accessor('gamePlayTotal', {
     cell: (info) => info.getValue(),
-    header: () => 'gamePlayTotal',
+    header: () => <span>Game Played</span>,
   }),
   columnHelper.accessor('maxSurvival', {
     cell: (info) => info.getValue(),
-    header: () => 'maxSurvival',
+    header: () => <span>Max Survival</span>,
   }),
   columnHelper.accessor('totalPP', {
     cell: (info) => info.getValue(),
-    header: () => 'totalPP',
+    header: () => <span>Total PP</span>,
   }),
   columnHelper.accessor('totalSP', {
     cell: (info) => info.getValue(),
-    header: () => 'totalSP',
+    header: () => <span>Total SP</span>,
   }),
   columnHelper.accessor('totalPoint', {
     cell: (info) => info.getValue(),
-    header: () => 'totalPoint',
+    header: () => <span>Total Point</span>,
+  }),
+  columnHelper.accessor((row) => row.version, {
+    id: 'management',
+    cell: (info) => (
+      <div>
+        <div>
+          <a>View Code</a>
+        </div>
+        <div>
+          <a>Game History</a>
+        </div>
+      </div>
+    ),
+    header: () => <span>Management</span>,
   }),
 ]
 export const SummaryTable = () => {

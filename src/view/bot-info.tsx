@@ -3,12 +3,12 @@ import Head from 'next/head'
 
 import { api } from '~/utils/api'
 import { useState } from 'react'
-import { ListRank } from '../../components/ListRank'
-import { MainLayout } from '../../components/MainLayout'
+import { MainLayout } from '../components/MainLayout'
 
 import { createColumnHelper } from '@tanstack/react-table'
-import { SummaryTable } from './SummaryTable'
+import { SummaryTable } from './account/SummaryTable'
 import Link from 'next/link'
+import { LatestGameTable } from '~/components/LatestGameTable'
 
 interface Item {
   id: number
@@ -16,7 +16,7 @@ interface Item {
   botName: string
   score: number
 }
-export const AccountPage: NextPage = () => {
+export const BotInfoPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
   const mock = () => {
@@ -43,24 +43,21 @@ export const AccountPage: NextPage = () => {
         <meta name="description" content="0xparadise" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-[#E0DACF]">
-        <MainLayout>
-          <div className="p-4">
-            <div className="mb-4 space-x-2">
-              <span>My Survivors</span>
-              <span>+</span>
+      <main className="">
+        <MainLayout >
+          <div className="p-4 bg-[#E0DACF]">
+            <div className="flex items-center mb-4 space-x-2">
               <Link href="/create-survival">
                 <button className="rounded-lg border px-4 py-2">Create New</button>
               </Link>
+              <h1 className="text-xl text-black font-semibold uppercase">Bot History </h1>
             </div>
             <div className="space-y-4">
-              {Array.from(Array(10).keys()).map((item) => (
-                <>
-                  <div className="mb-2 text-lg">BOT {item}</div>
-                  <SummaryTable />
-                </>
-              ))}
+                <div className="mb-2 text-lg">BOT 1 Summary</div>
+                <SummaryTable />
             </div>
+            <h1 className="text-xl text-black font-semibold uppercase m-8">All Game Plays</h1>
+            <LatestGameTable />
           </div>
         </MainLayout>
       </main>

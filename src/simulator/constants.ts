@@ -3,7 +3,7 @@ export class Constants {
   static ONE_HUNDRED = BigInt(10_000)
   static SQRT_ONE = BigInt(10)
 
-  static ACTION_POINT = BigInt(100_000)
+  static ACTION_POINT = BigInt(1_000)
 
   static PERSONAL_BUILDING_DIVIDER = BigInt(100)
   static COMMUNITY_BUILDING_DIVIDER = BigInt(700)

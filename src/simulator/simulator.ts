@@ -35,7 +35,7 @@ export class Simulator {
 
     // Initialize world
     this.world = {
-      buildings: emptyBuildings,
+      buildings: { ...emptyBuildings },
       rock: {
         supply: Constants.INITIAL_ROCK,
         prevHarvest: BigInt(0),
@@ -77,8 +77,8 @@ export class Simulator {
         hp: Constants.INITIAL_HP,
         pearl: BigInt(0),
         dayLived: 0,
-        resources: emptyResourcesUnit,
-        buildings: emptyBuildings,
+        resources: { ...emptyResourcesUnit },
+        buildings: { ...emptyBuildings },
         harvestPlan: [],
         communityBuildingPlan: [],
         personalBuildingPlan: [],
@@ -96,7 +96,7 @@ export class Simulator {
   }
 
   step(nStep: number) {
-    for (var i = 0; i < nStep; i++) {
+    for (let i = 0; i < nStep; i++) {
       if (!this.isEnded) {
         console.log(`Start day ${this.round + 1}`)
         this.harvestPhase()
@@ -105,15 +105,17 @@ export class Simulator {
         this.visitPhase()
         this.worldUpdate()
         console.log(`Survivors: ${this.islanders.length - this.deadPplAmt}`)
+      } else {
+        break
       }
     }
   }
 
   harvestPhase() {
-    var harvestPlans: Resources[] = Array(this.islanders.length).fill(emptyResources)
-    var totalHarvestPoint: Resources = emptyResources
+    let harvestPlans: Resources[] = Array(this.islanders.length).fill({ ...emptyResources })
+    let totalHarvestPoint: Resources = { ...emptyResources }
     // Get harvest plan for each islander
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       //// Skip dead islanders
       if (this.islanders[i]!.info.hp == BigInt(0)) continue
       try {
@@ -162,18 +164,21 @@ export class Simulator {
     this.world.pearl.supply -= this.world.pearl.prevHarvest
 
     // Update islander resources
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
+      const islander = this.islanders[i]!
       // Skip dead islanders
-      if (this.islanders[i]!.info.hp == BigInt(0)) continue
+      if (islander.info.hp == BigInt(0)) continue
       const harvestPlan = harvestPlans[i]!
-      this.islanders[i]!.info.pearl += (harvestPlan.pearl * pearlHarvestPerShare) / Constants.ONE
-      this.islanders[i]!.info.resources.rock += (harvestPlan.rock * rockHarvestPerShare) / Constants.ONE
-      this.islanders[i]!.info.resources.wood += (harvestPlan.wood * woodHarvestPerShare) / Constants.ONE
-      this.islanders[i]!.info.resources.food +=
+      islander.info.pearl += (harvestPlan.pearl * pearlHarvestPerShare) / Constants.ONE
+      islander.info.resources.rock += (harvestPlan.rock * rockHarvestPerShare) / Constants.ONE
+      islander.info.resources.wood += (harvestPlan.wood * woodHarvestPerShare) / Constants.ONE
+      islander.info.resources.food +=
         (Constants.FOOD_UNIT_PER_FRUIT_PCT * harvestPlan.fruit * fruitHarvestPerShare +
           Constants.FOOD_UNIT_PER_MEAT_PCT * harvestPlan.animal * animalHarvestPerShare +
           Constants.FOOD_UNIT_PER_FISH_PCT * harvestPlan.fish * fishHarvestPerShare) /
         (Constants.ONE * Constants.ONE)
+
+      this.islanders[i] = islander
     }
 
     console.log(
@@ -183,7 +188,7 @@ export class Simulator {
 
   communityBuildPhase() {
     // Get community building plan for each islander
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       if (this.islanders[i]!.info.hp == BigInt(0)) continue
 
       try {
@@ -193,7 +198,7 @@ export class Simulator {
         // Upgrade rock harvest using wood
         if (this.islanders[i]!.info.resources.wood >= plan.harvest.rock) {
           this.world.buildings.harvest.rock += plan.harvest.rock
-          this.islanders[i]!.info.resources.rock -= plan.harvest.rock
+          this.islanders[i]!.info.resources.wood -= plan.harvest.rock
         }
         // Upgrade wood harvest using wood
         if (this.islanders[i]!.info.resources.wood >= plan.harvest.wood) {
@@ -221,15 +226,15 @@ export class Simulator {
           this.islanders[i]!.info.resources.rock -= plan.statue
         }
         // Upgrade atk using rock
-        if (this.islanders[i]!.info.resources.rock >= plan.atk) {
-          this.world.buildings.atk += plan.atk
-          this.islanders[i]!.info.resources.rock -= plan.atk
-        }
-        // Upgrade def using rock
-        if (this.islanders[i]!.info.resources.rock >= plan.def) {
-          this.world.buildings.def += plan.def
-          this.islanders[i]!.info.resources.rock -= plan.def
-        }
+        //if (this.islanders[i]!.info.resources.rock >= plan.atk) {
+        //this.world.buildings.atk += plan.atk
+        //this.islanders[i]!.info.resources.rock -= plan.atk
+        //}
+        //// Upgrade def using rock
+        //if (this.islanders[i]!.info.resources.rock >= plan.def) {
+        //this.world.buildings.def += plan.def
+        //this.islanders[i]!.info.resources.rock -= plan.def
+        //}
       } catch {}
     }
     console.log(
@@ -239,7 +244,7 @@ export class Simulator {
 
   personalBuildPhase() {
     // Get personal building plan for each islander
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       if (this.islanders[i]!.info.hp == BigInt(0)) continue
 
       try {
@@ -249,7 +254,7 @@ export class Simulator {
         // Upgrade rock harvest using wood
         if (this.islanders[i]!.info.resources.wood >= plan.harvest.rock) {
           this.islanders[i]!.info.buildings.harvest.rock += plan.harvest.rock
-          this.islanders[i]!.info.resources.rock -= plan.harvest.rock
+          this.islanders[i]!.info.resources.wood -= plan.harvest.rock
         }
         // Upgrade wood harvest using wood
         if (this.islanders[i]!.info.resources.wood >= plan.harvest.wood) {
@@ -271,11 +276,11 @@ export class Simulator {
           this.islanders[i]!.info.buildings.protection += plan.protection
           this.islanders[i]!.info.resources.wood -= plan.protection
         }
-        // Upgrade statue using rock
-        if (this.islanders[i]!.info.resources.rock >= plan.statue) {
-          this.islanders[i]!.info.buildings.statue += plan.statue
-          this.islanders[i]!.info.resources.rock -= plan.statue
-        }
+        //// Upgrade statue using rock
+        //if (this.islanders[i]!.info.resources.rock >= plan.statue) {
+        //this.islanders[i]!.info.buildings.statue += plan.statue
+        //this.islanders[i]!.info.resources.rock -= plan.statue
+        //}
         // Upgrade atk using rock
         if (this.islanders[i]!.info.resources.rock >= plan.atk) {
           this.islanders[i]!.info.buildings.atk += plan.atk
@@ -291,9 +296,9 @@ export class Simulator {
   }
 
   visitPhase() {
-    var healthDiffs: bigint[] = Array(this.islanders.length).fill(0)
-    for (var i = 0; i < this.islanders.length; ++i) {
-      for (var j = 0; j < this.islanders.length; ++j) {
+    let healthDiffs: bigint[] = Array(this.islanders.length).fill(0)
+    for (let i = 0; i < this.islanders.length; ++i) {
+      for (let j = 0; j < this.islanders.length; ++j) {
         if (i == j) continue
         // Skip dead islanders
         if (this.islanders[i]!.info.hp == BigInt(0) || this.islanders[j]!.info.hp == BigInt(0)) continue
@@ -324,7 +329,7 @@ export class Simulator {
       }
     }
 
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       //// Skip dead islanders
       if (this.islanders[i]!.info.hp == BigInt(0)) continue
 
@@ -342,7 +347,7 @@ export class Simulator {
   worldUpdate() {
     const [isHit, disasterDamage] = isDisasterHit(this.round, this.nextRandomness())
     // Eat food and take disaster
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       const islander = this.islanders[i]!.info
       // Skip dead islanders
       if (islander.hp == BigInt(0)) continue
@@ -380,8 +385,8 @@ export class Simulator {
       this.islanders[i]!.info = islander
     }
 
-    var deadPplAmt = 0
-    for (var i = 0; i < this.islanders.length; ++i) {
+    let deadPplAmt = 0
+    for (let i = 0; i < this.islanders.length; ++i) {
       const islander = this.islanders[i]!.info
       if (islander.hp == BigInt(0)) {
         deadPplAmt += 1
@@ -394,6 +399,7 @@ export class Simulator {
     }
     this.deadPplAmt = deadPplAmt
     if (deadPplAmt == this.islanders.length) {
+      this.isEnded = true
       this.end()
       return
     }
@@ -423,7 +429,7 @@ export class Simulator {
         this.world.buildings.harvest.rock +
         this.world.buildings.harvest.wood) *
         Constants.POINT_PER_BUILDING
-    for (var i = 0; i < this.islanders.length; ++i) {
+    for (let i = 0; i < this.islanders.length; ++i) {
       const islander = this.islanders[i]!.info
       const personalScore =
         islander.pearl * Constants.POINT_PER_PEARL + BigInt(islander.dayLived) * Constants.POINT_PER_DAY_LIVED

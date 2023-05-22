@@ -6,17 +6,18 @@ export class BalancedBot implements Islander {
   name: string = 'Balanced Bot'
   planHarvest(world: World, islander: IslanderInfo): Resources {
     return {
-      wood: BigInt(40),
-      animal: BigInt(10),
-      fish: BigInt(10),
-      fruit: BigInt(20),
-      pearl: BigInt(10),
-      rock: BigInt(10),
+      wood: 40n,
+      animal: 10n,
+      fish: 10n,
+      fruit: 20n,
+      pearl: 10n,
+      rock: 10n,
     }
   }
   planCommunityBuild(world: World, islander: IslanderInfo): Buildings {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
+    console.log(`wood: ${wood}, rock: ${rock}`)
     return {
       atk: BigInt(0), // rock // mai mee
       def: BigInt(0), // rock // mai mee
@@ -33,6 +34,7 @@ export class BalancedBot implements Islander {
   planPersonalBuild(world: World, islander: IslanderInfo): Buildings {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
+    console.log(`wood: ${wood}, rock: ${rock}`)
     return {
       atk: (BigInt(5) * rock) / BigInt(10),
       def: (BigInt(5) * rock) / BigInt(10),

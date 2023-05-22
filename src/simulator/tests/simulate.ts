@@ -9,8 +9,4 @@ const simulator = new Simulator(
   [...Array(NO_BOTS)].map(() => new BalancedBot()),
   randomness,
 )
-var i = 0
-while (i < 2) {
-  simulator.step(1)
-  i++
-}
+simulator.step(1000)

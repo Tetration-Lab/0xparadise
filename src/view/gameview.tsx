@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { nthNumber } from '../utils'
 
-const emojiList = ['🙅‍♂️', '🏃‍♂️', '👩‍🦰']
 export const GameViewPage: NextPage = () => {
   return (
     <>

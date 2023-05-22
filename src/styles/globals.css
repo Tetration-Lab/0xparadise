@@ -76,3 +76,7 @@ div.ut-flex>label>span {
     color: #FDD44E;
     text-shadow: 2px 1px 0px #000000;
 }
+
+.pixelated{
+    image-rendering: pixelated;
+}

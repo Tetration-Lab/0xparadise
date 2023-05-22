@@ -2,6 +2,7 @@ import { type NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import { nthNumber } from '../utils'
 
 const emojiList = ['🙅‍♂️', '🏃‍♂️', '👩‍🦰']
 export const GameViewPage: NextPage = () => {
@@ -222,7 +223,10 @@ export const GameViewPage: NextPage = () => {
                         <div className="flex w-full flex-col justify-between">
                           <div className="flex w-full text-sm text-white">
                             <div className="w-1/2 flex-shrink-0">
-                              <div>1st</div>
+                              <div>
+                                {item + 1}
+                                {nthNumber(item + 1)}
+                              </div>
                               <div className="text-[#FF626B]">HP: 10/10</div>
                             </div>
                             <div className="w-1/2 flex-shrink-0">

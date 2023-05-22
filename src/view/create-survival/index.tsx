@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import { api } from '~/utils/api'
 import { useState } from 'react'
-import { useAuth } from '@clerk/nextjs'
 import { MainLayout } from '../../components/MainLayout'
 import { UploadButton } from '@uploadthing/react'
 import { type OurFileRouter } from '../../server/uploadthing'

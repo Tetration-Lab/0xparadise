@@ -69,7 +69,7 @@ export const GameViewPage: NextPage = () => {
           </div>
           <div className="z-10 h-[30%] flex-shrink-0 bg-[#4E4B4B] bg-opacity-40  p-4">
             <div className="flex h-full flex-col">
-              <div className="game-log-title text-lg uppercase">Game log</div>
+              <div className="game-log-title text-lg font-semibold uppercase">Game log</div>
               <div className="relative overflow-y-auto bg-[#1C1C1C] px-2 text-white">
                 <ul className="my-2 space-y-2">
                   {/* mock array 100 item */}
@@ -91,9 +91,11 @@ export const GameViewPage: NextPage = () => {
                 <Image src={'/image/logo.png'} className="h-full" width={630} height={136} alt={'logo'} />
               </div>
             </div>
+            <div className="item-center game-title flex w-full justify-center text-lg font-semibold">
+              MATCH STATISTICS
+            </div>
             <div className="overflow-auto p-4">
               <div className="rounded-md border border-black bg-[#4E4B4B] bg-opacity-70 p-2  px-1">
-                <div className="item-center game-title flex w-full justify-center">MATCH STATISTICS</div>
                 <ul className="mt-2 flex flex-1 flex-col space-y-2 px-2">
                   {/* mock array 100 item */}
                   {Array.from(Array(100).keys()).map((item) => (

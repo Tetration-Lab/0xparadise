@@ -6,6 +6,9 @@ import { useState } from 'react'
 import { ListRank } from '../components/ListRank'
 import { MainLayout } from '../components/MainLayout'
 import { useAuth } from '@clerk/nextjs'
+import { LatestGameTable } from '~/components/LatestGameTable'
+import { LeaderboardGameTable } from '~/components/LeaderboardTable'
+import { RecentGameTable } from '~/components/RecentGameTable'
 
 interface Item {
   id: number
@@ -44,24 +47,26 @@ export const LeaderBoardPage: NextPage = () => {
       </Head>
       <main className="">
         <MainLayout>
-          <div className="p-4">
-            <div className="relative">
-              <div className="abosolute">
-                test auth {isSignedIn && secretMessage && secretMessage}
-                <button className="border px-2" onClick={() => mock()}>
-                  add
-                </button>
-                <button className="border px-2" onClick={() => removeMock()}>
-                  remove
-                </button>
+          <div className="bg-[#B3A69F] p-8">
+            <div className="flex flex-col justify-center">
+              <h1 className="text-xl text-black font-semibold uppercase">My Latest Game</h1>
+              <div className="my-4">
+                <LatestGameTable />
               </div>
             </div>
-            <div className="flex justify-center">
-              <h1 className="text-xl font-semibold">Leaderboard</h1>
+          </div>
+          <div className="bg-[#E0DACF] min-h-screen p-8 flex">
+            <div className="w-3/5">
+              <h1 className="text-xl text-black font-semibold uppercase">Leaderboard</h1>
+              <div className="my-4 px-4">
+                <LeaderboardGameTable />
+              </div>
             </div>
-            <div className="flex justify-center"></div>
-            <div className="px-20">
-              <ListRank data={items} />
+            <div className="w-2/5">
+            <h1 className="text-xl text-black font-semibold uppercase">All Recent Games</h1>
+            <div className="my-4 px-4">
+                <RecentGameTable />
+              </div>
             </div>
           </div>
         </MainLayout>

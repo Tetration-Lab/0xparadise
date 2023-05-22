@@ -65,6 +65,7 @@ div.ut-flex>label>span {
     image-rendering: pixelated;
 }
 
+<<<<<<< HEAD
 .game-text-shadow{
     text-shadow: 1px 1px 1px #000;
 }
@@ -86,4 +87,9 @@ div.ut-flex>label>span {
     flex-wrap: nowrap !important;
     align-items: stretch !important;
   }
->>>>>>> 0384d0e (add ui for other page)
+
+
+.game-text-shadow{
+    text-shadow: 1px 1px 1px #000;
+}
+

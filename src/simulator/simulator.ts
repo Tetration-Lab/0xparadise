@@ -1,8 +1,16 @@
 import { ethers } from 'ethers'
 import { communitySurvivalBonus, individualAttackBonus, individualDefenseBonus, individualSurvivalBonus } from './bonus'
 import { Constants } from './constants'
-import { Islander } from './islander'
-import { Action, emptyBuildings, emptyResources, emptyResourcesUnit, IslanderInfo, Resources, World } from './types'
+import { type Islander } from './islander'
+import {
+  Action,
+  emptyBuildings,
+  emptyResources,
+  emptyResourcesUnit,
+  type IslanderInfo,
+  type Resources,
+  type World,
+} from './types'
 import {
   battleDamage,
   calculateAnimalRegen,
@@ -112,8 +120,9 @@ export class Simulator {
   }
 
   harvestPhase() {
-    let harvestPlans: Resources[] = Array(this.islanders.length).fill({ ...emptyResources })
-    let totalHarvestPoint: Resources = { ...emptyResources }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const harvestPlans: Resources[] = Array(this.islanders.length).fill({ ...emptyResources })
+    const totalHarvestPoint: Resources = { ...emptyResources }
     // Get harvest plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
       //// Skip dead islanders
@@ -296,7 +305,8 @@ export class Simulator {
   }
 
   visitPhase() {
-    let healthDiffs: bigint[] = Array(this.islanders.length).fill(0)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const healthDiffs: bigint[] = Array(this.islanders.length).fill(0)
     for (let i = 0; i < this.islanders.length; ++i) {
       for (let j = 0; j < this.islanders.length; ++j) {
         if (i == j) continue

@@ -3,7 +3,7 @@ import { World, IslanderInfo, Resources, Buildings, Action } from '../types'
 
 export class BalancedBot implements Islander {
   constructor() {}
-  name: string = 'Balanced Bot'
+  name = 'Balanced Bot'
   planHarvest(world: World, islander: IslanderInfo): Resources {
     return {
       wood: 40n,
@@ -35,6 +35,7 @@ export class BalancedBot implements Islander {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
     console.log(`wood: ${wood}, rock: ${rock}`)
+
     return {
       atk: (BigInt(5) * rock) / BigInt(10),
       def: (BigInt(5) * rock) / BigInt(10),

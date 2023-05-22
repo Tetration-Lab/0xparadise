@@ -2,11 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body{
+html,
+body {
     width: 100%;
     height: 100%;
 }
-#__next{
+
+#__next {
     width: 100%;
     height: 100%;
 }
@@ -18,19 +20,21 @@ html,body{
 /* .ut-bg-blue-600{
     width: 100%;
 } */
-.ut-flex>div{
+.ut-flex>div {
     display: none;
-    
+
 }
-div.ut-flex>label>span{
+
+div.ut-flex>label>span {
     display: none;
 }
 
-.ut-hidden{
+.ut-hidden {
     width: 100%;
     height: 100%;
 }
-.ut-flex{
+
+.ut-flex {
     width: 100%;
     height: 100%;
 }
@@ -52,3 +56,23 @@ div.ut-flex>label>span{
     flex-wrap: nowrap !important;
     align-items: stretch !important;
   }
+.game-log-title {
+    line-height: 29px;
+    /* or 133% */
+
+    letter-spacing: 0.06em;
+
+    color: #FDD44E;
+    text-shadow: 2px 1px 0px #000000;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.game-title {
+    color: #FDD44E;
+    text-shadow: 2px 1px 0px #000000;
+}

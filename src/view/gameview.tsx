@@ -23,7 +23,7 @@ export const GameViewPage: NextPage = () => {
           </div>
           <div className="min-win-full absolute right-0 z-10 flex w-96 justify-end">
             <div className="z-10 pr-4 pt-4">
-              <div className="mb-2 font-semibold uppercase">Community build stat</div>
+              <div className="mb-2 font-semibold uppercase text-black">Community build stat</div>
               <div className=" game-text-shadow grid grid-cols-2 text-[#00FFA3]">
                 <div className="">Max Health</div>
                 <div className="text-right">+5</div>

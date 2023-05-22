@@ -21,13 +21,31 @@ export const GameViewPage: NextPage = () => {
               </Link>
             </div>
           </div>
-          <div className="h-full">
+          <div className="min-win-full absolute right-0 z-10 flex w-96 justify-end">
+            <div className="z-10 pr-4 pt-4">
+              <div className="mb-2 font-semibold uppercase">Community build stat</div>
+              <div className=" game-text-shadow grid grid-cols-2 text-[#00FFA3]">
+                <div className="">Max Health</div>
+                <div className="text-right">+5</div>
+              </div>
+              <div className=" game-text-shadow grid grid-cols-2 text-[#FF9356]">
+                <div className="">Disasters Damage</div>
+                <div className="text-right">-10</div>
+              </div>
+
+              <div className=" game-text-shadow grid grid-cols-2 text-[#FFD600]">
+                <div className="">Prestige</div>
+                <div className="text-right">+500</div>
+              </div>
+            </div>
+          </div>
+          <div className="h-full bg-red-500">
             <div className="absolute z-0 flex h-full w-full justify-center  bg-[#98BBC5]">
-              <div className="h-full w-full bg-[url('/image/game-bg.png')] bg-cover bg-center bg-no-repeat lg:w-[80%]"></div>
+              <div className="-z-10 h-full w-full bg-[url('/image/game-bg.png')] bg-cover bg-center bg-no-repeat lg:w-[80%]"></div>
             </div>
             <div className="absolute left-1/2 top-24 -translate-x-1/2">
               <div className="h-36 w-36 rounded-full border bg-[#4E4B4B] bg-opacity-60 text-white">
-                <div className="flex h-full w-full items-center justify-center">
+                <div className="z-20 flex h-full w-full items-center justify-center">
                   <Image className="pb-8" alt="stone" src="/image/stone.png" width={64} height={64} />
                 </div>
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
@@ -112,7 +130,7 @@ export const GameViewPage: NextPage = () => {
               </div>
             </div>
           </div>
-          <div className="z-10 h-[30%] flex-shrink-0 bg-[#4E4B4B] bg-opacity-40  p-4">
+          <div className="z-0 h-[30%] flex-shrink-0 bg-[#4E4B4B] bg-opacity-40 p-4">
             <div className="flex h-full flex-col">
               <div className="game-log-title text-lg font-semibold uppercase">Game log</div>
               <div className="relative overflow-y-auto bg-[#1C1C1C] px-2 text-white">
@@ -145,7 +163,7 @@ export const GameViewPage: NextPage = () => {
               <div className="h-full">
                 <ul className="flex flex-1 flex-col space-y-1 p-2">
                   {/* mock array 100 item */}
-                  {Array.from(Array(100).keys()).map((item) => (
+                  {Array.from(Array(8).keys()).map((item) => (
                     <li className="" key={item}>
                       {/* random emoji */}
                       <div className="flex w-full flex-shrink-0 bg-black bg-opacity-50 p-1">

@@ -63,3 +63,7 @@ div.ut-flex>label>span {
 .pixelated{
     image-rendering: pixelated;
 }
+
+.game-text-shadow{
+    text-shadow: 1px 1px 1px #000;
+}

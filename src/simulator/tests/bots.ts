@@ -1,7 +1,8 @@
-import { Islander } from '../islander'
-import { World, IslanderInfo, Resources, Buildings, Action } from '../types'
+import { type Islander } from '../islander'
+import { type World, type IslanderInfo, type Resources, type Buildings, Action } from '../types'
 
 export class BalancedBot implements Islander {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
   name = 'Balanced Bot'
   planHarvest(world: World, islander: IslanderInfo): Resources {

@@ -43,7 +43,7 @@ const columns = [
   columnHelper.accessor('totalPoints', {
     cell: (info) => info.getValue(),
     header: () => <span>Total Points</span>,
-  })
+  }),
 ]
 export const LeaderboardGameTable = () => {
   return (

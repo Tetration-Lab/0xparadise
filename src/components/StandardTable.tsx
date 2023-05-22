@@ -32,7 +32,7 @@ export const StandardTable: StandardTableProps = ({ data, columns }) => {
 
   return (
     <>
-      <table className="w-full text-black border bg-[#FFF9EA]">
+      <table className="w-full border bg-[#FFF9EA] text-black">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

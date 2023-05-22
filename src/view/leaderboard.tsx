@@ -49,22 +49,22 @@ export const LeaderBoardPage: NextPage = () => {
         <MainLayout>
           <div className="bg-[#B3A69F] p-8">
             <div className="flex flex-col justify-center">
-              <h1 className="text-xl text-black font-semibold uppercase">My Latest Game</h1>
+              <h1 className="text-xl font-semibold uppercase text-black">My Latest Game</h1>
               <div className="my-4">
                 <LatestGameTable />
               </div>
             </div>
           </div>
-          <div className="bg-[#E0DACF] min-h-screen p-8 flex">
+          <div className="flex min-h-screen bg-[#E0DACF] p-8">
             <div className="w-3/5">
-              <h1 className="text-xl text-black font-semibold uppercase">Leaderboard</h1>
+              <h1 className="text-xl font-semibold uppercase text-black">Leaderboard</h1>
               <div className="my-4 px-4">
                 <LeaderboardGameTable />
               </div>
             </div>
             <div className="w-2/5">
-            <h1 className="text-xl text-black font-semibold uppercase">All Recent Games</h1>
-            <div className="my-4 px-4">
+              <h1 className="text-xl font-semibold uppercase text-black">All Recent Games</h1>
+              <div className="my-4 px-4">
                 <RecentGameTable />
               </div>
             </div>

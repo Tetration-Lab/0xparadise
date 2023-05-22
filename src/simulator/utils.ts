@@ -18,7 +18,7 @@
 
 import { communityHarvestBonus, individualHarvestBonus } from './bonus'
 import { Constants } from './constants'
-import { Resources, ResourcesUnit } from './types'
+import { type Resources, type ResourcesUnit } from './types'
 
 export const min = (x: bigint, y: bigint) => {
   return x < y ? x : y
@@ -133,7 +133,7 @@ export const probHit = (prob: bigint, randomness: bigint) => {
 
 // calculate normalized harvest action points
 export const normalizeWithBonus = (plan: Resources, individualBonus: ResourcesUnit, communityBonus: ResourcesUnit) => {
-  var base = BigInt(0)
+  let base = BigInt(0)
 
   base += plan.rock
   base += plan.wood

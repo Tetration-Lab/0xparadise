@@ -1,4 +1,4 @@
-import { Action, Buildings, IslanderInfo, Resources, World } from './types'
+import { type Action, type Buildings, type IslanderInfo, type Resources, type World } from './types'
 
 export interface Islander {
   name: string

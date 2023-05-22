@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ethers } from 'ethers'
 import { communitySurvivalBonus, individualAttackBonus, individualDefenseBonus, individualSurvivalBonus } from './bonus'
 import { Constants } from './constants'

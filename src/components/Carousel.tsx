@@ -1,14 +1,14 @@
-import Slider from "react-slick";
+import Slider from 'react-slick'
 
 export const Carousel: React.FC = () => {
-  var settings = {
+  const settings = {
     dots: true,
     arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    adaptiveHeight: false
+    adaptiveHeight: false,
   }
   return (
     <div>

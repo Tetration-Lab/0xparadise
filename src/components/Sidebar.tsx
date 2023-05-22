@@ -8,7 +8,7 @@ export const SideBar = () => {
   const { isSignedIn } = useAuth()
   return (
     <>
-      <div className="hidden h-full flex-col lg:flex bg-[url('/image/sidebar.png')] bg-center bg-no-repeat bg-cover">
+      <div className="hidden h-full flex-col bg-[url('/image/sidebar.png')] bg-cover bg-center bg-no-repeat lg:flex">
         <div className="mt-4">
           <div className="p-4">
             <div className="rounded-md bg-black bg-opacity-20">

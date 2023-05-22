@@ -5,7 +5,10 @@ interface Props {
 
 export const Button: React.FC<Props> = ({ children, onClick }) => {
   return (
-    <div onClick={onClick} className="rounded-md border text-black font-bold bg-primary-button border-black p-2 hover:bg-hover-button">
+    <div
+      onClick={onClick}
+      className="rounded-md border border-black bg-primary-button p-2 font-bold text-black hover:bg-hover-button"
+    >
       {children}
     </div>
   )

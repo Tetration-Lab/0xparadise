@@ -9,6 +9,7 @@ type Game = {
   hash: string
   gamePlayed: string
   elo: number
+  version: string
 }
 
 const defaultData: Game[] = [
@@ -20,6 +21,7 @@ const defaultData: Game[] = [
     hash: '0x31e10bdd7a6de25414e5a41485b5a9b294bea4cf03f8f328666f1bf24cfe393d',
     gamePlayed: '3',
     elo: 8000,
+    version: '0.1.0',
   },
 ]
 
@@ -35,13 +37,13 @@ const columns = [
     header: () => <span>TEAM</span>,
   }),
   columnHelper.accessor('submission', {
-    cell: (info) => info.getValue().substring(0,4),
+    cell: (info) => info.getValue().substring(0, 4),
     header: () => <span>SUBMISSION #</span>,
   }),
   columnHelper.accessor('hash', {
     cell: (info) => (
       <a href="" target="_blank">
-        {info.getValue().substring(0,4)}
+        {info.getValue().substring(0, 4)}
       </a>
     ),
     header: () => <span>LATEST HASH</span>,

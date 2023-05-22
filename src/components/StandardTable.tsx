@@ -32,13 +32,13 @@ export const StandardTable: StandardTableProps = ({ data, columns }) => {
 
   return (
     <>
-      <table className="w-full border">
+      <table className="w-full text-black border bg-[#FFF9EA]">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <th className="border p-2" key={header.id} colSpan={header.colSpan}>
+                  <th className="border border-black p-2" key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder ? null : (
                       <div
                         {...{
@@ -68,7 +68,7 @@ export const StandardTable: StandardTableProps = ({ data, columns }) => {
                 <tr key={row.id}>
                   {row.getVisibleCells().map((cell) => {
                     return (
-                      <td className="border p-2" key={cell.id}>
+                      <td className="border border-black p-2" key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
                     )

@@ -39,6 +39,7 @@ div.ut-flex>label>span {
     height: 100%;
 }
 
+<<<<<<< HEAD
 .game-log-title {
     line-height: 29px;
     /* or 133% */
@@ -67,3 +68,22 @@ div.ut-flex>label>span {
 .game-text-shadow{
     text-shadow: 1px 1px 1px #000;
 }
+=======
+.slick-dots{
+    bottom: 25px;
+}
+.slick-dots li.slick-active button:before{
+    color: white;
+}
+
+.slick-slide {
+    width: auto !important;
+  }
+  
+  .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+  }
+>>>>>>> 0384d0e (add ui for other page)

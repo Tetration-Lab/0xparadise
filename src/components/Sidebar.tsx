@@ -2,12 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { menuItems } from '../constant/menuItem'
 import { useAuth } from '@clerk/clerk-react'
+import { Button } from './Button'
 
 export const SideBar = () => {
   const { isSignedIn } = useAuth()
   return (
     <>
-      <div className="hidden h-full flex-col lg:flex">
+      <div className="hidden h-full flex-col lg:flex bg-[url('/image/sidebar.png')] bg-center bg-no-repeat bg-cover">
         <div className="mt-4">
           <div className="p-4">
             <div className="rounded-md bg-black bg-opacity-20">
@@ -24,20 +25,11 @@ export const SideBar = () => {
               }
             }
             return (
-              <Link
-                key={`${item?.text}:${index}`}
-                href={item.url}
-                target={item?.target}
-                className="rounded-md border border-black p-2 hover:bg-gray-100"
-              >
-                {item.text}
+              <Link key={`${item?.text}:${index}`} href={item.url} target={item?.target}>
+                <Button>{item.text}</Button>
               </Link>
             )
           })}
-        </div>
-        <div className="p-2">
-          <div>© 2023 Tetration lab.</div>
-          <div>All Right Reserved.</div>
         </div>
       </div>
     </>

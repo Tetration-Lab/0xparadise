@@ -1,20 +1,23 @@
 import { SignInButton, UserButton, useUser } from '@clerk/nextjs'
 import { SideBar } from './Sidebar'
+import { Carousel } from './Carousel'
+import { Button } from './Button'
 
 export interface Props {
   heroSection?: React.ReactNode
   children: React.ReactNode
 }
 
-const MockSection = () => {
+const HeroSection = () => {
   const { user, isSignedIn } = useUser()
   return (
-    <>
+    <div className="relative">
+      <Carousel />
       <div className="absolute right-0 top-0 pr-4 pt-4">
         {!isSignedIn && (
-          <button className="rounded-full border border-black p-2 px-4">
+          <Button>
             <SignInButton>Connect Wallet</SignInButton>
-          </button>
+          </Button>
         )}
         {isSignedIn && (
           <UserButton
@@ -29,11 +32,7 @@ const MockSection = () => {
           />
         )}
       </div>
-      <div className="absolute bottom-0 w-1/2 pl-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam omnis, repellat, eligendi deserunt quas odit
-        nisi ratione cum veniam nesciunt nemo deleniti iste natus non tempora ab ut dolore culpa.
-      </div>
-    </>
+    </div>
   )
 }
 
@@ -52,7 +51,8 @@ export const MainLayout: React.FC<Props> = ({ children, heroSection }) => {
         </div>
         <div className="lg:pl-64">
           {/* hero section */}
-          <div className="relative hidden h-40 bg-gray-100 lg:block">{heroSection ? heroSection : <MockSection />}</div>
+
+          <div style={{ height: '250px' }}>{heroSection ? heroSection : <HeroSection />}</div>
           {/* content */}
           <div>{children}</div>
         </div>

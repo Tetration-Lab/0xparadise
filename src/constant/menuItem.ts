@@ -16,8 +16,8 @@ export const menuItems = [
     url: 'https://twitter.com/Tetration_Lab',
     target: '_blank',
   },
-  {
-    text: 'Game',
-    url: '/game',
-  },
+  // {
+  //   text: 'Game',
+  //   url: '/game',
+  // },
 ]

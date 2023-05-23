@@ -1,5 +1,6 @@
 import { createColumnHelper } from '@tanstack/table-core'
 import { StandardTable } from './StandardTable'
+import Link from 'next/link'
 
 type Game = {
   id: string
@@ -59,8 +60,8 @@ const columns = [
   columnHelper.accessor((row) => row.version, {
     id: 'version',
     cell: (info) => (
-      <span style={{ backgroundColor: '#F79C1C' }}>
-        <a>VIEW GAME</a>
+      <span className="w-full p-1 text-center" style={{ backgroundColor: '#F79C1C' }}>
+        <Link href="/game">VIEW GAME</Link>
       </span>
     ),
     header: () => <span>VIEW</span>,

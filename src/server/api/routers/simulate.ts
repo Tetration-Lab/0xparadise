@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { z } from 'zod'
 import _ from 'lodash'
@@ -59,7 +60,7 @@ export const simulatorRouter = createTRPCRouter({
     }
   }),
 
-  check: publicProcedure.input(z.string()).mutation(async ({ input }) => {
+  check: publicProcedure.input(z.string()).mutation(({ input }) => {
     try {
       if (!sourceCodeToBytesCode(input)) throw new Error()
     } catch {

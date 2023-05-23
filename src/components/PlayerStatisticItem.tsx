@@ -7,15 +7,45 @@ interface Props {
   tp: number
   sp: number
   pp: number
+  hp: number
+  maxHp: number
+  sword: number
+  armor: number
+  pickaxe: number
+  shovel: number
+  bag: number
+  timber: number
+  fruit: number
+  stone: number
 }
 
-export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp, sp, pp }) => {
+function formatNumber(num: number) {
+  return num.toLocaleString('en-US')
+}
+
+export const PlayerStatisticItem: React.FC<Props> = ({
+  position,
+  avatarImage,
+  sword,
+  armor,
+  pickaxe,
+  shovel,
+  bag,
+  hp,
+  maxHp,
+  tp,
+  sp,
+  pp,
+  timber,
+  fruit,
+  stone,
+}) => {
   return (
     <div className="flex w-full flex-shrink-0 bg-black bg-opacity-50 p-1">
       <div className="space-y-1 pr-1">
         <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
           <Image className="pixelated h-full w-full" src={avatarImage} width={16} height={16} alt={'logo'} />
-          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">50</div>
+          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">{timber}</div>
         </div>
 
         <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
@@ -26,7 +56,7 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
             height={16}
             alt={'logo'}
           />
-          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">50</div>
+          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">{stone}</div>
         </div>
         <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
           <Image
@@ -36,7 +66,7 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
             height={16}
             alt={'logo'}
           />
-          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">50</div>
+          <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">{fruit}</div>
         </div>
       </div>
 
@@ -53,13 +83,15 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
               {position}
               {nthNumber(position)}
             </div>
-            <div className="text-[#FF626B]">HP: 10/10</div>
+            <div className="text-[#FF626B]">
+              HP: {formatNumber(hp)}/{formatNumber(maxHp)}
+            </div>
           </div>
           <div className="w-1/2 flex-shrink-0">
-            <div className="text-[#FCB42B]">TP: {tp.toLocaleString('en-US')}</div>
+            <div className="text-[#FCB42B]">TP: {formatNumber(tp)}</div>
             <div className="ml-2 text-xs text-[#FDD44E]">
-              <div>SP: {sp.toLocaleString('en-US')}</div>
-              <div>PP: {pp.toLocaleString('en-US')}</div>
+              <div>SP: {formatNumber(sp)}</div>
+              <div>PP: {formatNumber(pp)}</div>
             </div>
           </div>
         </div>
@@ -75,7 +107,9 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
                 height={16}
                 alt={'logo'}
               />
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+1</div>
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">
+                +{sword}
+              </div>
             </div>
             <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
               <Image
@@ -85,7 +119,9 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
                 height={16}
                 alt={'logo'}
               />
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+1</div>
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">
+                +{armor}
+              </div>
             </div>
             <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
               <Image
@@ -95,7 +131,9 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
                 height={16}
                 alt={'logo'}
               />
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+1</div>
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">
+                +{pickaxe}
+              </div>
             </div>
             <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
               <Image
@@ -105,7 +143,9 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
                 height={16}
                 alt={'logo'}
               />
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+1</div>
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">
+                +{shovel}
+              </div>
             </div>
             <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
               <Image
@@ -115,7 +155,7 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp
                 height={16}
                 alt={'logo'}
               />
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+1</div>
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">+{bag}</div>
             </div>
           </div>
         </div>

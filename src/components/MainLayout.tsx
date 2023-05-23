@@ -11,7 +11,7 @@ export interface Props {
 const HeroSection = () => {
   const { user, isSignedIn } = useUser()
   return (
-    <div className="relative">
+    <div className="relative bg-[#B3A69F]">
       <Carousel />
       <div className="absolute right-0 top-0 pr-4 pt-4">
         {!isSignedIn && (
@@ -51,8 +51,7 @@ export const MainLayout: React.FC<Props> = ({ children, heroSection }) => {
         </div>
         <div className="lg:pl-64">
           {/* hero section */}
-
-          <div style={{ height: '250px' }}>{heroSection ? heroSection : <HeroSection />}</div>
+          <HeroSection />
           {/* content */}
           <div>{children}</div>
         </div>

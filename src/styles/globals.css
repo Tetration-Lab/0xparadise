@@ -93,3 +93,7 @@ div.ut-flex>label>span {
     text-shadow: 1px 1px 1px #000;
 }
 
+
+.slick-slide {
+    /* height: auto; // ← that must not be ignored */
+  }

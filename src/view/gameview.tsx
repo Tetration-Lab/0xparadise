@@ -65,7 +65,7 @@ export const GameViewPage: NextPage = () => {
                 </div>
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
-                    <div>Meat</div>
+                    <div className="text-center">Meat</div>
                     <div>25/25</div>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ export const GameViewPage: NextPage = () => {
                 </div>
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
-                    <div>Fish</div>
+                    <div className="text-center">Fish</div>
                     <div>25/25</div>
                   </div>
                 </div>
@@ -133,7 +133,7 @@ export const GameViewPage: NextPage = () => {
           </div>
           <div className="z-0 h-[30%] flex-shrink-0 bg-[#4E4B4B] bg-opacity-40 p-4">
             <div className="flex h-full flex-col">
-              <div className="game-log-title text-lg font-semibold uppercase">Game log</div>
+              <div className="game-log-title game-title text-lg font-semibold uppercase">Game log</div>
               <div className="relative overflow-y-auto bg-[#1C1C1C] px-2 text-white">
                 <ul className="my-2 space-y-2">
                   {/* mock array 100 item */}
@@ -169,10 +169,20 @@ export const GameViewPage: NextPage = () => {
                       <PlayerStatisticItem
                         key={index}
                         position={index + 1}
+                        hp={100}
+                        maxHp={100}
                         avatarImage={'/image/item/timber-item.png'}
                         tp={1900}
                         sp={100}
                         pp={1900}
+                        sword={10}
+                        armor={100}
+                        pickaxe={100}
+                        shovel={100}
+                        bag={100}
+                        timber={100}
+                        fruit={10}
+                        stone={100}
                       />
                     </li>
                   ))}

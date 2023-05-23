@@ -45,8 +45,8 @@ const columnHelper = createColumnHelper<Game>()
 
 const columns = [
   columnHelper.accessor('no', {
-    cell: (info) => info.getValue(),
-    header: () => <span>PLACE</span>,
+    cell: (info) => <>Game : {info.getValue()}</>,
+    header: () => <span>Games</span>,
   }),
   // columnHelper.accessor('team', {
   //   cell: (info) => info.getValue(),

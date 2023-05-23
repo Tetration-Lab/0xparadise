@@ -9,6 +9,7 @@ type SummaryDataProps = {
   deployOn: string
   gamePlayTotal: number
   totalPoint: number
+  gameIds: string[]
 }
 
 const columnHelper = createColumnHelper<Partial<SummaryDataProps>>()
@@ -31,24 +32,29 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => 'Created At',
   }),
-  columnHelper.accessor('gamePlayTotal', {
-    cell: (info) => info.getValue(),
-    header: () => 'Game Played',
-  }),
+  // columnHelper.accessor('gamePlayTotal', {
+  //   cell: (info) => info.getValue(),
+  //   header: () => 'Game Played',
+  // }),
   columnHelper.accessor('totalPoint', {
     cell: (info) => info.getValue(),
     header: () => 'Total Point',
   }),
-  columnHelper.accessor('management', {
+  columnHelper.accessor('gameIds', {
     cell: (info) => (
       <>
         <div className="flex flex-col">
-          <div className="bg-[#F6D666] text-center">
+          {/* <div className="bg-[#F6D666] text-center">
             <Link href="/">View code</Link>
-          </div>
-          <div className="bg-[#EAA040] text-center">
+          </div> */}
+          {/* <div className="bg-[#EAA040] text-center">
             <Link href="/game">Game history</Link>
-          </div>
+          </div> */}
+          {info.getValue()?.map((gameId) => (
+            <div key={gameId} className="my-1 bg-[#EAA040] text-center">
+              <Link href={`/game?id=${gameId}`}>Game history</Link>
+            </div>
+          ))}
         </div>
       </>
     ),

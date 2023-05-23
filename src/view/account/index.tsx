@@ -28,6 +28,7 @@ export const AccountPage: NextPage = () => {
         deployOn: item.createdAt.toDateString(),
         gamePlayTotal: item.gamePlayed ?? 0,
         totalPoint: item.totalPoint ?? 0,
+        gameIds: item.roundIds ?? [],
       }
     })
   }

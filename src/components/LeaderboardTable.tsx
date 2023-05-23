@@ -36,10 +36,10 @@ const columns = [
     cell: (info) => info.getValue(),
     header: () => <span>Total Point</span>,
   }),
-  columnHelper.accessor('gamePlayed', {
-    cell: (info) => info.getValue(),
-    header: () => <span>Game Played</span>,
-  }),
+  // columnHelper.accessor('gamePlayed', {
+  //   cell: (info) => info.getValue(),
+  //   header: () => <span>Game Played</span>,
+  // }),
   columnHelper.accessor('totalPoints', {
     cell: (info) => info.getValue(),
     header: () => <span>Total Points</span>,

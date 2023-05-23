@@ -62,7 +62,7 @@ export const LeaderBoardPage: NextPage = () => {
           <div className="bg-[#B3A69F] p-8">
             <div className="flex flex-col justify-center">
               <h1 className="text-xl font-semibold uppercase text-black">My Latest Game</h1>
-              <div className="my-4">
+              <div className="my-4 w-full max-w-lg">
                 <LatestGameTable data={formatData()} />
               </div>
             </div>

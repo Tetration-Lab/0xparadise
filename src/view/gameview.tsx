@@ -4,8 +4,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { nthNumber } from '../utils'
 import { PlayerStatisticItem } from '../components/PlayerStatisticItem'
+import { useUser } from '@clerk/nextjs'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export const GameViewPage: NextPage = () => {
+  // const user = useUser()
+  // const router = useRouter()
+  // useEffect(() => {
+  //   if (!user.isSignedIn) {
+  //     void router.push('/')
+  //   }
+  // }, [user])
   return (
     <>
       <Head>

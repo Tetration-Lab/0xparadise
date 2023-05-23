@@ -106,7 +106,7 @@ export const CreateSurvivalPage: NextPage = () => {
               </div>
 
               <div>
-                <button onClick={onSubmit} className="rounded-lg border px-6 py-3">
+                <button onClick={() => void onSubmit()} className="rounded-lg border px-6 py-3">
                   Create Now
                 </button>
               </div>

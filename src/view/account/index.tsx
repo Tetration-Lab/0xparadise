@@ -56,8 +56,9 @@ export const AccountPage: NextPage = () => {
             </div>
             <div className="space-y-4">
               hello {JSON.stringify(data?.list)}
-              {data?.list.map((item) => (
-                <img src={item.profileImageUrl} width={64} height={64} />
+              {data?.list.map((item, index) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={item.profileImageUrl} key={index} width={64} height={64} alt="avatar" />
               ))}
               {Array.from(Array(10).keys()).map((item) => (
                 <>

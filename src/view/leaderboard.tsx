@@ -22,7 +22,6 @@ export const LeaderBoardPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
   const { isSignedIn } = useAuth()
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(undefined, { enabled: isSignedIn })
   const { data: recentGames } = api.game.list.useQuery()
   const mock = () => {
     const random = Math.floor(Math.random() * 100)
@@ -40,6 +39,17 @@ export const LeaderBoardPage: NextPage = () => {
     const newItems = items.slice(0, items.length - 1)
     setItems(newItems)
   }
+  const formatData = () => {
+    if (!recentGames?.list) {
+      return []
+    }
+    return recentGames?.list.map((i, index) => {
+      return {
+        no: index + 1,
+        gameId: i.id,
+      }
+    })
+  }
   return (
     <>
       <Head>
@@ -53,7 +63,7 @@ export const LeaderBoardPage: NextPage = () => {
             <div className="flex flex-col justify-center">
               <h1 className="text-xl font-semibold uppercase text-black">My Latest Game</h1>
               <div className="my-4">
-                <LatestGameTable />
+                <LatestGameTable data={formatData()} />
               </div>
             </div>
           </div>
@@ -62,7 +72,7 @@ export const LeaderBoardPage: NextPage = () => {
               <h1 className="text-xl font-semibold uppercase text-black">Leaderboard</h1>
               <div className="my-4 px-4">
                 <LeaderboardGameTable />
-                {recentGames?.list.map((game, index) => {
+                {/* {recentGames?.list.map((game, index) => {
                   return (
                     <div key={game.id}>
                       <Link className="text-black" href={`/game?id=${game.id}`}>
@@ -70,7 +80,7 @@ export const LeaderBoardPage: NextPage = () => {
                       </Link>
                     </div>
                   )
-                })}
+                })} */}
               </div>
             </div>
             <div className="w-2/5">

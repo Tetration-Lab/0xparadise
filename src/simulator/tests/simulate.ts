@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { ethers } from 'ethers'
 import { instantiateEVM } from '../evm'
 import { getBotFromCode, sourceCodeToBytesCode } from '../getBotFromChain'

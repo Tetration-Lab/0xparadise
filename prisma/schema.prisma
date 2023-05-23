@@ -39,10 +39,10 @@ model Bot {
   profileImageUrl String
   yourcode        String
   userAddress     String
-  gamePlayed      Int
-  totalPP         Int
-  totalSP         Int
-  totalPoint      Int
+  gamePlayed      Int?
+  totalPP         Int?
+  totalSP         Int?
+  totalPoint      Int?
   roundIds        String[]
 }
 

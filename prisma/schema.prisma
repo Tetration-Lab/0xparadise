@@ -37,4 +37,6 @@ model Bot {
   name            String
   userID          String
   profileImageUrl String
+  yourcode        String
+  userAddress     String
 }

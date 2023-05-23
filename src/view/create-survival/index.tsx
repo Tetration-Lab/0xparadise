@@ -25,6 +25,7 @@ export const CreateSurvivalPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const { mutateAsync: createBot } = api.bot.create.useMutation()
   const botNameRef = useRef<HTMLInputElement>(null)
+  const yourCodeRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
   const onSubmit = async () => {
     // validate
@@ -32,10 +33,12 @@ export const CreateSurvivalPage: NextPage = () => {
     const schema = z.object({
       botName: z.string().nonempty(),
       botImageUrl: z.string().nonempty(),
+      yourcode: z.string().nonempty(),
     })
     const payload = {
       botImageUrl: imageUrl,
       botName: botNameRef?.current?.value || '',
+      yourcode: yourCodeRef?.current?.value || '',
     }
     const result = schema.safeParse(payload)
     console.log(result)
@@ -78,8 +81,6 @@ export const CreateSurvivalPage: NextPage = () => {
             <div className="mt-4 space-y-4 rounded-lg bg-[#B1A6A0] p-4">
               {/*  */}
               <div className="space-y-2">
-                {/* TODO:  */}
-                {user.user?.primaryWeb3Wallet?.web3Wallet}
                 <div>Name Your Character</div>
                 <input ref={botNameRef} className="w-full max-w-xl border bg-[#FEF9EB] p-2" />
               </div>
@@ -136,7 +137,14 @@ export const CreateSurvivalPage: NextPage = () => {
 
               <div>
                 <div className="mb-4">Deploy your code</div>
-                <textarea className="w-full max-w-xl bg-[#FEF9EB]" name="" id="" cols={30} rows={10}></textarea>
+                <textarea
+                  ref={yourCodeRef}
+                  className="w-full max-w-xl bg-[#FEF9EB]"
+                  name=""
+                  id=""
+                  cols={30}
+                  rows={10}
+                ></textarea>
               </div>
 
               <div>

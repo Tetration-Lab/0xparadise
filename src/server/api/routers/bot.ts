@@ -4,14 +4,22 @@ import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/
 
 export const botRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(z.object({ botImageUrl: z.string(), botName: z.string() }))
+    .input(z.object({ botImageUrl: z.string(), botName: z.string(), yourcode: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      const userTarget = await ctx.prisma.syncUser.findFirst({
+        where: {
+          userID: ctx.auth.userId,
+        },
+      })
       // create bot
+      const address = userTarget && userTarget?.wallets.length > 0 ? userTarget?.wallets[0] : ''
       return await ctx.prisma.bot.create({
         data: {
           profileImageUrl: input.botImageUrl,
           userID: ctx.auth.userId,
           name: input.botName,
+          yourcode: input.yourcode,
+          userAddress: address || '',
         },
       })
     }),

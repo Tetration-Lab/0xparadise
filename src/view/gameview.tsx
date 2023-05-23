@@ -10,16 +10,17 @@ import { useRouter } from 'next/router'
 import { api } from '../utils/api'
 
 export const GameViewPage: NextPage = () => {
-  // const mockID = `646cb0045fdf294ab474a7f0`
   // const user = useUser()
-  // const router = useRouter()
+  const router = useRouter()
+  const { id } = router.query
   // useEffect(() => {
   //   if (!user.isSignedIn) {
   //     void router.push('/')
   //   }
   // }, [user])
-  // const { data } = api.game.get.useQuery({ gameId: mockID })}
-  
+  const { data } = api.game.get.useQuery({ gameId: id as string })
+  console.log(data)
+
   return (
     <>
       <Head>

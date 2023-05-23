@@ -39,4 +39,16 @@ model Bot {
   profileImageUrl String
   yourcode        String
   userAddress     String
+  gamePlayed      Int
+  totalPP         Int
+  totalSP         Int
+  totalPoint      Int
+  roundIds        String[]
+}
+
+model Round {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  days        Json
+  islanderIds String[]
+  createdAt   DateTime @default(now())
 }

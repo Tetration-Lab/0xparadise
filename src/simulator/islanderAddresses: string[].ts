@@ -9,7 +9,8 @@ export interface Day {
 export interface Round {
   id: string
   days: Day[]
-  islanderAddresses: string[]
+  // islanderAddresses: string[]
+  islanderIds: string[]
 }
 
 export enum Action {

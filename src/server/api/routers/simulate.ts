@@ -9,12 +9,14 @@ import { Simulator } from '~/simulator/simulator'
 
 import JsonBIG from 'json-bigint'
 
+const PLAYERS = 8
+
 export const simulatorRouter = createTRPCRouter({
-  simulate: publicProcedure.input(z.object({ players: z.number() })).mutation(async ({ input, ctx }) => {
+  simulate: publicProcedure.mutation(async ({ ctx }) => {
     try {
       const bots = await ctx.prisma.bot.findMany()
-      if (bots.length < input.players) return
-      const indexes = _.shuffle([...Array(bots.length).keys()]).slice(0, input.players)
+      if (bots.length < PLAYERS) return
+      const indexes = _.shuffle([...Array(bots.length).keys()]).slice(0, PLAYERS)
 
       const vm = await instantiateEVM()
       const islanders: Islander[] = []

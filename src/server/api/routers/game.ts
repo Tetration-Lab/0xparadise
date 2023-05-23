@@ -13,4 +13,14 @@ export const gameRouter = createTRPCRouter({
       gameData: resp,
     }
   }),
+  list: publicProcedure.query(async ({ ctx }) => {
+    const list = await ctx.prisma.round.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+    return {
+      list: list,
+    }
+  }),
 })

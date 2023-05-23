@@ -9,6 +9,7 @@ import { useAuth } from '@clerk/nextjs'
 import { LatestGameTable } from '~/components/LatestGameTable'
 import { LeaderboardGameTable } from '~/components/LeaderboardTable'
 import { RecentGameTable } from '~/components/RecentGameTable'
+import Link from 'next/link'
 
 interface Item {
   id: number
@@ -22,6 +23,7 @@ export const LeaderBoardPage: NextPage = () => {
   const [items, setItems] = useState<Item[]>([])
   const { isSignedIn } = useAuth()
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(undefined, { enabled: isSignedIn })
+  const { data: recentGames } = api.game.list.useQuery()
   const mock = () => {
     const random = Math.floor(Math.random() * 100)
     const mockItem = {
@@ -60,6 +62,15 @@ export const LeaderBoardPage: NextPage = () => {
               <h1 className="text-xl font-semibold uppercase text-black">Leaderboard</h1>
               <div className="my-4 px-4">
                 <LeaderboardGameTable />
+                {recentGames?.list.map((game, index) => {
+                  return (
+                    <div key={game.id}>
+                      <Link className="text-black" href={`/game?id=${game.id}`}>
+                        game {`${index + 1}`}
+                      </Link>
+                    </div>
+                  )
+                })}
               </div>
             </div>
             <div className="w-2/5">

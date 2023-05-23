@@ -19,6 +19,7 @@ export const GameViewPage: NextPage = () => {
   //   }
   // }, [user])
   // const { data } = api.game.get.useQuery({ gameId: mockID })}
+  
   return (
     <>
       <Head>

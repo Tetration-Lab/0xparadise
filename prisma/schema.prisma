@@ -40,8 +40,6 @@ model Bot {
   yourcode        String
   userAddress     String
   gamePlayed      Int?
-  totalPP         Int?
-  totalSP         Int?
   totalPoint      Int?
   roundIds        String[]
 }

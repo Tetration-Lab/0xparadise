@@ -3,6 +3,7 @@ import { exampleRouter } from '~/server/api/routers/example'
 import { syncUserRouter } from './routers/syncUser'
 import { botRouter } from './routers/bot'
 import { simulatorRouter } from './routers/simulate'
+import { gameRouter } from './routers/game'
 
 /**
  * This is the primary router for your server.
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   syncUser: syncUserRouter,
   bot: botRouter,
   simulate: simulatorRouter,
+  game: gameRouter,
 })
 
 // export type definition of API

@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 export const GameViewPage: NextPage = () => {
+  const mockID = `646cb0045fdf294ab474a7f0`
   // const user = useUser()
   // const router = useRouter()
   // useEffect(() => {

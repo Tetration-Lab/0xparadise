@@ -417,4 +417,110 @@ export class Simulator {
       this.islanders[i]!.score = Number(communityScore + personalScore)
     }
   }
+
+  formatIlanderInfosResult() {
+    return this.islanders
+      .map((e) => e.info)
+      .map((e) => ({
+        idx: e.idx,
+        hp: Number(e.hp),
+        pearl: Number(e.pearl),
+        dayLived: e.dayLived,
+        resources: {
+          food: Number(e.resources.food),
+          wood: Number(e.resources.wood),
+          rock: Number(e.resources.rock),
+        },
+        buildings: {
+          survival: Number(e.buildings.survival),
+          protection: Number(e.buildings.protection),
+          statue: Number(e.buildings.statue),
+          atk: Number(e.buildings.atk),
+          def: Number(e.buildings.def),
+          harvest: {
+            food: Number(e.buildings.harvest.food),
+            wood: Number(e.buildings.harvest.wood),
+            rock: Number(e.buildings.harvest.rock),
+          },
+        },
+        harvestPlan: e.harvestPlan.map((ee) => ({
+          rock: Number(ee.rock),
+          wood: Number(ee.wood),
+          fruit: Number(ee.fruit),
+          animal: Number(ee.animal),
+          fish: Number(ee.fish),
+          pearl: Number(ee.pearl),
+        })),
+        communityBuildingPlan: e.communityBuildingPlan.map((ee) => ({
+          survival: Number(ee.survival),
+          protection: Number(ee.protection),
+          statue: Number(ee.statue),
+          atk: Number(ee.atk),
+          def: Number(ee.def),
+          harvest: {
+            food: Number(ee.harvest.food),
+            wood: Number(ee.harvest.wood),
+            rock: Number(ee.harvest.rock),
+          },
+        })),
+        personalBuildingPlan: e.personalBuildingPlan.map((ee) => ({
+          survival: Number(ee.survival),
+          protection: Number(ee.protection),
+          statue: Number(ee.statue),
+          atk: Number(ee.atk),
+          def: Number(ee.def),
+          harvest: {
+            food: Number(ee.harvest.food),
+            wood: Number(ee.harvest.wood),
+            rock: Number(ee.harvest.rock),
+          },
+        })),
+        kills: e.kills.map((ee) => Number(ee)),
+        attacks: e.attacks.map((ee) => Number(ee)),
+        attacked: e.attacked.map((ee) => Number(ee)),
+        heals: e.heals.map((ee) => Number(ee)),
+      }))
+  }
+
+  formatWorldResult() {
+    return {
+      animal: {
+        prevHarvest: Number(this.world.animal.prevHarvest),
+        prevRegen: Number(this.world.animal.prevRegen),
+        supply: Number(this.world.animal.supply),
+      },
+      rock: {
+        prevHarvest: Number(this.world.rock.prevHarvest),
+        prevRegen: Number(this.world.rock.prevRegen),
+        supply: Number(this.world.rock.supply),
+      },
+      wood: {
+        prevHarvest: Number(this.world.wood.prevHarvest),
+        prevRegen: Number(this.world.wood.prevRegen),
+        supply: Number(this.world.wood.supply),
+      },
+      fruit: {
+        prevHarvest: Number(this.world.fruit.prevHarvest),
+        prevRegen: Number(this.world.fruit.prevRegen),
+        supply: Number(this.world.fruit.supply),
+      },
+      pearl: {
+        prevHarvest: Number(this.world.pearl.prevHarvest),
+        prevRegen: Number(this.world.pearl.prevRegen),
+        supply: Number(this.world.pearl.supply),
+      },
+      buildings: {
+        harvest: {
+          food: Number(this.world.buildings.harvest.food),
+          wood: Number(this.world.buildings.harvest.wood),
+          rock: Number(this.world.buildings.harvest.rock),
+        },
+        survival: Number(this.world.buildings.survival),
+        protection: Number(this.world.buildings.protection),
+        statue: Number(this.world.buildings.statue),
+        atk: Number(this.world.buildings.atk),
+        def: Number(this.world.buildings.def),
+      },
+    }
+  }
 }

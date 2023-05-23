@@ -12,6 +12,7 @@ import { FaImage } from 'react-icons/fa'
 
 import { z } from 'zod'
 import { useRouter } from 'next/router'
+import { useUser } from '@clerk/nextjs'
 
 interface Item {
   id: number
@@ -52,6 +53,7 @@ export const CreateSurvivalPage: NextPage = () => {
     alert(`done bot ID:${resp.id}`)
     void router.push('/account')
   }
+  const user = useUser()
   return (
     <>
       <Head>
@@ -76,6 +78,8 @@ export const CreateSurvivalPage: NextPage = () => {
             <div className="mt-4 space-y-4 rounded-lg bg-[#B1A6A0] p-4">
               {/*  */}
               <div className="space-y-2">
+                {/* TODO:  */}
+                {user.user?.primaryWeb3Wallet?.web3Wallet}
                 <div>Name Your Character</div>
                 <input ref={botNameRef} className="w-full max-w-xl border bg-[#FEF9EB] p-2" />
               </div>

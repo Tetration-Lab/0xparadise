@@ -36,8 +36,8 @@ export class Constants {
 
   static TREE_GROWTH_RATE_R_T = 100n
   static TREE_GROWTH_RATE_FROM_FRUIT_R_F = 60n
-  static TREE_CAPACITY_K_T = 4_000n
-  static TREE_CAPACITY_FROM_FRUIT_K_F = 10_000n
+  static TREE_CAPACITY_K_T = 40_00n
+  static TREE_CAPACITY_FROM_FRUIT_K_F = 100_00n
   static FRUIT_REGEN_RATE_LAMBDA = 800n
   static ANIMAL_FRUIT_CONSUMPTION_RATE_ALPHA = 50n
   static ANIMAL_REPRODUCTION_RATE_BETA = 10n
@@ -46,7 +46,7 @@ export class Constants {
   static FISH_CAPACITY_K_V = 50_00n
 
   static INITIAL_TREE = 800n
-  static INITIAL_ROCK = 500_000n
+  static INITIAL_ROCK = 500_00n
   static INITIAL_FRUIT = 0n
   static INITIAL_ANIMAL = 2_00n
   static INITIAL_FISH = 10_00n

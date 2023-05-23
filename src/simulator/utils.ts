@@ -124,6 +124,7 @@ export const battleDamage = (
 // if supply higher than EFFECTIVE_MINING_RATIO x totalHarvastPoint will get full harvest.
 // otherwise will get harvest per share pernalty
 export const harvestPerShare = (supply: bigint, totalHarvestPoint: bigint) => {
+  if (totalHarvestPoint == 0n) return 0n
   return min((supply * Constants.ONE) / (totalHarvestPoint * Constants.EFFECTIVE_MINING_RATIO), Constants.ONE)
 }
 

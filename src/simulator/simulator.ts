@@ -47,33 +47,33 @@ export class Simulator {
       buildings: { ...emptyBuildings },
       rock: {
         supply: Constants.INITIAL_ROCK,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
       wood: {
         supply: Constants.INITIAL_TREE,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
       fruit: {
         supply: Constants.INITIAL_FRUIT,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
       animal: {
         supply: Constants.INITIAL_ANIMAL,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
       fish: {
         supply: Constants.INITIAL_FISH,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
       pearl: {
         supply: Constants.INITIAL_PEARL,
-        prevHarvest: BigInt(0),
-        prevRegen: BigInt(0),
+        prevHarvest: 0n,
+        prevRegen: 0n,
       },
     }
 
@@ -84,7 +84,7 @@ export class Simulator {
       info: {
         idx: i,
         hp: Constants.INITIAL_HP,
-        pearl: BigInt(0),
+        pearl: 0n,
         dayLived: 0,
         resources: { ...emptyResourcesUnit },
         buildings: { ...emptyBuildings },
@@ -127,7 +127,7 @@ export class Simulator {
     // Get harvest plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
       //// Skip dead islanders
-      if (this.islanders[i]!.info.hp == BigInt(0)) continue
+      if (this.islanders[i]!.info.hp == 0n) continue
       try {
         const plan = this.islanders[i]!.itf.planHarvest(this.world, this.islanders[i]!.info)
         // Save islander latest harvest plan
@@ -177,7 +177,7 @@ export class Simulator {
     for (let i = 0; i < this.islanders.length; ++i) {
       const islander = this.islanders[i]!
       // Skip dead islanders
-      if (islander.info.hp == BigInt(0)) continue
+      if (islander.info.hp == 0n) continue
       const harvestPlan = harvestPlans[i]!
       islander.info.pearl += (harvestPlan.pearl * pearlHarvestPerShare) / Constants.ONE
       islander.info.resources.rock += (harvestPlan.rock * rockHarvestPerShare) / Constants.ONE
@@ -199,7 +199,7 @@ export class Simulator {
   communityBuildPhase() {
     // Get community building plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
-      if (this.islanders[i]!.info.hp == BigInt(0)) continue
+      if (this.islanders[i]!.info.hp == 0n) continue
 
       try {
         const plan = this.islanders[i]!.itf.planCommunityBuild(this.world, this.islanders[i]!.info)
@@ -255,7 +255,7 @@ export class Simulator {
   personalBuildPhase() {
     // Get personal building plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
-      if (this.islanders[i]!.info.hp == BigInt(0)) continue
+      if (this.islanders[i]!.info.hp == 0n) continue
 
       try {
         const plan = this.islanders[i]!.itf.planPersonalBuild(this.world, this.islanders[i]!.info)
@@ -306,15 +306,14 @@ export class Simulator {
   }
 
   visitPhase() {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const healthDiffs: bigint[] = Array(this.islanders.length).fill(0)
+    let healthDiffs: bigint[] = Array(this.islanders.length).fill(0n)
     for (let i = 0; i < this.islanders.length; ++i) {
       for (let j = 0; j < this.islanders.length; ++j) {
         if (i == j) continue
         // Skip dead islanders
-        if (this.islanders[i]!.info.hp == BigInt(0) || this.islanders[j]!.info.hp == BigInt(0)) continue
+        if (this.islanders[i]!.info.hp == 0n || this.islanders[j]!.info.hp == 0n) continue
 
-        const [damageDealtIfAttack, damageTakenIfAttack] = battleDamage(
+        const [damageTakenIfAttack, damageDealtIfAttack] = battleDamage(
           individualAttackBonus(this.islanders[i]!.info.buildings.atk),
           individualDefenseBonus(this.islanders[i]!.info.buildings.def),
           individualAttackBonus(this.islanders[j]!.info.buildings.atk),
@@ -342,15 +341,15 @@ export class Simulator {
 
     for (let i = 0; i < this.islanders.length; ++i) {
       //// Skip dead islanders
-      if (this.islanders[i]!.info.hp == BigInt(0)) continue
+      if (this.islanders[i]!.info.hp == 0n) continue
 
       const diff = healthDiffs[i]!
       if (healthDiffs[i]! >= this.islanders[i]!.info.hp) {
         // Dead
-        this.islanders[i]!.info.hp = BigInt(0)
+        this.islanders[i]!.info.hp = 0n
       } else {
         // Survive
-        this.islanders[i]!.info.hp -= BigInt(diff)
+        this.islanders[i]!.info.hp -= diff
       }
     }
   }
@@ -361,14 +360,14 @@ export class Simulator {
     for (let i = 0; i < this.islanders.length; ++i) {
       const islander = this.islanders[i]!.info
       // Skip dead islanders
-      if (islander.hp == BigInt(0)) continue
+      if (islander.hp == 0n) continue
       // Eat food
       const maxHp =
         Constants.INITIAL_HP +
         individualSurvivalBonus(islander.buildings.survival) +
         communitySurvivalBonus(this.world.buildings.survival)
       // Eat 1 unit of food to prevent hp loss
-      if (islander.resources.food == BigInt(0)) {
+      if (islander.resources.food == 0n) {
         // Lose HEALTH_PER_FOOD_UNIT hp if no food
         islander.hp -= Constants.HEALTH_PER_FOOD_UNIT
       } else {
@@ -386,7 +385,7 @@ export class Simulator {
       if (isHit) {
         if (disasterDamage >= islander.hp) {
           // Dead
-          islander.hp = BigInt(0)
+          islander.hp = 0n
         } else {
           // Survive
           islander.hp -= disasterDamage
@@ -398,15 +397,15 @@ export class Simulator {
 
     let deadPplAmt = 0
     for (let i = 0; i < this.islanders.length; ++i) {
-      const islander = this.islanders[i]!.info
-      if (islander.hp == BigInt(0)) {
+      const islander = this.islanders[i]!
+      if (islander.info.hp == 0n) {
         deadPplAmt += 1
       } else {
         // Increase day lived
-        islander.dayLived += 1
+        islander.info.dayLived += 1
       }
 
-      this.islanders[i]!.info = islander
+      this.islanders[i]! = islander
     }
     this.deadPplAmt = deadPplAmt
     if (deadPplAmt == this.islanders.length) {

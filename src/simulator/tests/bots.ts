@@ -1,5 +1,5 @@
-import { type Islander } from '../islander'
-import { type World, type IslanderInfo, type Resources, type Buildings, Action } from '../types'
+import { Islander } from '../islander'
+import { World, IslanderInfo, Resources, Buildings, Action, emptyBuildings } from '../types'
 
 export class BalancedBot implements Islander {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -18,36 +18,33 @@ export class BalancedBot implements Islander {
   planCommunityBuild(world: World, islander: IslanderInfo): Buildings {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
-    console.log(`wood: ${wood}, rock: ${rock}`)
     return {
-      atk: BigInt(0), // rock // mai mee
-      def: BigInt(0), // rock // mai mee
+      atk: 0n, // rock // mai mee
+      def: 0n, // rock // mai mee
       harvest: {
-        food: wood / BigInt(10), // wood
-        rock: wood / BigInt(10), // wood
-        wood: wood / BigInt(10), // wood
+        food: wood / 10n, // wood
+        rock: wood / 10n, // wood
+        wood: wood / 10n, // wood
       },
-      protection: wood / BigInt(10), // wood
-      statue: BigInt(0), // rock
-      survival: wood / BigInt(10), // wood
+      protection: wood / 10n, // wood
+      statue: 0n, // rock
+      survival: wood / 10n, // wood
     }
   }
   planPersonalBuild(world: World, islander: IslanderInfo): Buildings {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
-    console.log(`wood: ${wood}, rock: ${rock}`)
-
     return {
-      atk: (BigInt(5) * rock) / BigInt(10),
-      def: (BigInt(5) * rock) / BigInt(10),
+      atk: rock / 2n,
+      def: rock / 2n,
       harvest: {
-        food: (BigInt(2) * wood) / BigInt(10),
-        rock: (BigInt(2) * wood) / BigInt(10),
-        wood: (BigInt(2) * wood) / BigInt(10),
+        food: wood / 5n,
+        rock: wood / 5n,
+        wood: wood / 5n,
       },
-      protection: (BigInt(2) * wood) / BigInt(10),
-      statue: BigInt(0),
-      survival: (BigInt(2) * wood) / BigInt(10),
+      protection: wood / 5n,
+      statue: 0n,
+      survival: wood / 5n,
     }
   }
   planVisit(
@@ -61,6 +58,45 @@ export class BalancedBot implements Islander {
   }
 }
 
-export default {
-  BalancedBot,
+export class AggressiveBot implements Islander {
+  constructor() {}
+  name: string = 'Aggressive Bot'
+  planHarvest(world: World, islander: IslanderInfo): Resources {
+    return {
+      wood: 0n,
+      animal: 25n,
+      fish: 0n,
+      fruit: 0n,
+      pearl: 0n,
+      rock: 75n,
+    }
+  }
+  planCommunityBuild(world: World, islander: IslanderInfo): Buildings {
+    return { ...emptyBuildings }
+  }
+  planPersonalBuild(world: World, islander: IslanderInfo): Buildings {
+    const wood = islander.resources.wood
+    const rock = islander.resources.rock
+    return {
+      atk: (7n * rock) / 10n,
+      def: (3n * rock) / 10n,
+      harvest: {
+        food: 0n,
+        rock: 0n,
+        wood: 0n,
+      },
+      protection: 0n,
+      statue: 0n,
+      survival: 0n,
+    }
+  }
+  planVisit(
+    world: World,
+    self: IslanderInfo,
+    other: IslanderInfo,
+    damageDealtIfAttack: bigint,
+    damageTakenIfAttack: bigint,
+  ): Action {
+    return Action.Attack
+  }
 }

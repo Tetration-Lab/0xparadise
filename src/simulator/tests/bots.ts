@@ -5,7 +5,7 @@ export class BalancedBot implements Islander {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
   name = 'Balanced Bot'
-  planHarvest(world: World, islander: IslanderInfo): Resources {
+  async planHarvest(world: World, islander: IslanderInfo) {
     return {
       wood: 40n,
       animal: 10n,
@@ -15,7 +15,7 @@ export class BalancedBot implements Islander {
       rock: 10n,
     }
   }
-  planCommunityBuild(world: World, islander: IslanderInfo): Buildings {
+  async planCommunityBuild(world: World, islander: IslanderInfo) {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
     return {
@@ -31,7 +31,7 @@ export class BalancedBot implements Islander {
       survival: wood / 10n, // wood
     }
   }
-  planPersonalBuild(world: World, islander: IslanderInfo): Buildings {
+  async planPersonalBuild(world: World, islander: IslanderInfo) {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
     return {
@@ -47,13 +47,13 @@ export class BalancedBot implements Islander {
       survival: wood / 5n,
     }
   }
-  planVisit(
+  async planVisit(
     world: World,
     self: IslanderInfo,
     other: IslanderInfo,
     damageDealtIfAttack: bigint,
     damageTakenIfAttack: bigint,
-  ): Action {
+  ) {
     return Action.Attack
   }
 }
@@ -61,7 +61,7 @@ export class BalancedBot implements Islander {
 export class AggressiveBot implements Islander {
   constructor() {}
   name: string = 'Aggressive Bot'
-  planHarvest(world: World, islander: IslanderInfo): Resources {
+  async planHarvest(world: World, islander: IslanderInfo) {
     return {
       wood: 0n,
       animal: 25n,
@@ -71,10 +71,10 @@ export class AggressiveBot implements Islander {
       rock: 75n,
     }
   }
-  planCommunityBuild(world: World, islander: IslanderInfo): Buildings {
+  async planCommunityBuild(world: World, islander: IslanderInfo) {
     return { ...emptyBuildings }
   }
-  planPersonalBuild(world: World, islander: IslanderInfo): Buildings {
+  async planPersonalBuild(world: World, islander: IslanderInfo) {
     const wood = islander.resources.wood
     const rock = islander.resources.rock
     return {
@@ -90,13 +90,13 @@ export class AggressiveBot implements Islander {
       survival: 0n,
     }
   }
-  planVisit(
+  async planVisit(
     world: World,
     self: IslanderInfo,
     other: IslanderInfo,
     damageDealtIfAttack: bigint,
     damageTakenIfAttack: bigint,
-  ): Action {
+  ) {
     return Action.Attack
   }
 }

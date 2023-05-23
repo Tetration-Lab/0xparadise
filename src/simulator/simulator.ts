@@ -8,6 +8,7 @@ import {
   emptyBuildings,
   emptyResources,
   emptyResourcesUnit,
+  emptyWorld,
   type IslanderInfo,
   type Resources,
   type World,
@@ -43,39 +44,7 @@ export class Simulator {
     this.round = 0
 
     // Initialize world
-    this.world = {
-      buildings: { ...emptyBuildings },
-      rock: {
-        supply: Constants.INITIAL_ROCK,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-      wood: {
-        supply: Constants.INITIAL_TREE,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-      fruit: {
-        supply: Constants.INITIAL_FRUIT,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-      animal: {
-        supply: Constants.INITIAL_ANIMAL,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-      fish: {
-        supply: Constants.INITIAL_FISH,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-      pearl: {
-        supply: Constants.INITIAL_PEARL,
-        prevHarvest: 0n,
-        prevRegen: 0n,
-      },
-    }
+    this.world = { ...emptyWorld }
 
     // Initialize islanders
     this.islanders = islanders.map((itf, i) => ({
@@ -104,14 +73,14 @@ export class Simulator {
     return this.randomness
   }
 
-  step(nStep: number) {
+  async step(nStep: number) {
     for (let i = 0; i < nStep; i++) {
       if (!this.isEnded) {
         console.log(`Start day ${this.round + 1}`)
-        this.harvestPhase()
-        this.communityBuildPhase()
-        this.personalBuildPhase()
-        this.visitPhase()
+        await this.harvestPhase()
+        await this.communityBuildPhase()
+        await this.personalBuildPhase()
+        await this.visitPhase()
         this.worldUpdate()
         console.log(`Survivors: ${this.islanders.length - this.deadPplAmt}`)
       } else {
@@ -120,7 +89,7 @@ export class Simulator {
     }
   }
 
-  harvestPhase() {
+  async harvestPhase() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const harvestPlans: Resources[] = Array(this.islanders.length).fill({ ...emptyResources })
     const totalHarvestPoint: Resources = { ...emptyResources }
@@ -129,7 +98,7 @@ export class Simulator {
       //// Skip dead islanders
       if (this.islanders[i]!.info.hp == 0n) continue
       try {
-        const plan = this.islanders[i]!.itf.planHarvest(this.world, this.islanders[i]!.info)
+        const plan = await this.islanders[i]!.itf.planHarvest(this.world, this.islanders[i]!.info)
         // Save islander latest harvest plan
         this.islanders[i]!.info.harvestPlan.push(plan)
         // Normalize harvest plan with bonus
@@ -196,13 +165,13 @@ export class Simulator {
     )
   }
 
-  communityBuildPhase() {
+  async communityBuildPhase() {
     // Get community building plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
       if (this.islanders[i]!.info.hp == 0n) continue
 
       try {
-        const plan = this.islanders[i]!.itf.planCommunityBuild(this.world, this.islanders[i]!.info)
+        const plan = await this.islanders[i]!.itf.planCommunityBuild(this.world, this.islanders[i]!.info)
         // Save islander latest community building plan
         this.islanders[i]!.info.communityBuildingPlan.push(plan)
         // Upgrade rock harvest using wood
@@ -252,13 +221,13 @@ export class Simulator {
     )
   }
 
-  personalBuildPhase() {
+  async personalBuildPhase() {
     // Get personal building plan for each islander
     for (let i = 0; i < this.islanders.length; ++i) {
       if (this.islanders[i]!.info.hp == 0n) continue
 
       try {
-        const plan = this.islanders[i]!.itf.planPersonalBuild(this.world, this.islanders[i]!.info)
+        const plan = await this.islanders[i]!.itf.planPersonalBuild(this.world, this.islanders[i]!.info)
         // Save islander latest personal building plan
         this.islanders[i]!.info.personalBuildingPlan.push(plan)
         // Upgrade rock harvest using wood
@@ -305,7 +274,7 @@ export class Simulator {
     }
   }
 
-  visitPhase() {
+  async visitPhase() {
     let healthDiffs: bigint[] = Array(this.islanders.length).fill(0n)
     for (let i = 0; i < this.islanders.length; ++i) {
       for (let j = 0; j < this.islanders.length; ++j) {
@@ -321,7 +290,7 @@ export class Simulator {
         )
 
         try {
-          const action = this.islanders[i]!.itf.planVisit(
+          const action = await this.islanders[i]!.itf.planVisit(
             this.world,
             this.islanders[i]!.info,
             this.islanders[j]!.info,

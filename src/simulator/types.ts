@@ -1,3 +1,5 @@
+import { Constants } from './constants'
+
 // To be used
 export interface Day {
   world: World
@@ -74,29 +76,79 @@ export interface World {
 }
 
 export const emptyResources: Resources = {
-  rock: BigInt(0),
-  wood: BigInt(0),
-  fruit: BigInt(0),
-  animal: BigInt(0),
-  fish: BigInt(0),
-  pearl: BigInt(0),
+  rock: 0n,
+  wood: 0n,
+  fruit: 0n,
+  animal: 0n,
+  fish: 0n,
+  pearl: 0n,
 }
 
 export const emptyBuildings: Buildings = {
   harvest: {
-    rock: BigInt(0),
-    wood: BigInt(0),
-    food: BigInt(0),
+    rock: 0n,
+    wood: 0n,
+    food: 0n,
   },
-  survival: BigInt(0),
-  protection: BigInt(0),
-  statue: BigInt(0),
-  atk: BigInt(0),
-  def: BigInt(0),
+  survival: 0n,
+  protection: 0n,
+  statue: 0n,
+  atk: 0n,
+  def: 0n,
 }
 
 export const emptyResourcesUnit: ResourcesUnit = {
-  rock: BigInt(0),
-  wood: BigInt(0),
-  food: BigInt(0),
+  rock: 0n,
+  wood: 0n,
+  food: 0n,
+}
+
+export const emptyIslanderInfo: IslanderInfo = {
+  idx: 0,
+  hp: Constants.INITIAL_HP,
+  pearl: 0n,
+  dayLived: 0,
+  resources: { ...emptyResourcesUnit },
+  buildings: { ...emptyBuildings },
+  harvestPlan: [],
+  communityBuildingPlan: [],
+  personalBuildingPlan: [],
+  kills: [],
+  attacks: [],
+  attacked: [],
+  heals: [],
+}
+
+export const emptyWorld: World = {
+  buildings: { ...emptyBuildings },
+  rock: {
+    supply: Constants.INITIAL_ROCK,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
+  wood: {
+    supply: Constants.INITIAL_TREE,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
+  fruit: {
+    supply: Constants.INITIAL_FRUIT,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
+  animal: {
+    supply: Constants.INITIAL_ANIMAL,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
+  fish: {
+    supply: Constants.INITIAL_FISH,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
+  pearl: {
+    supply: Constants.INITIAL_PEARL,
+    prevHarvest: 0n,
+    prevRegen: 0n,
+  },
 }

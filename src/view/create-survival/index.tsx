@@ -13,6 +13,7 @@ import { FaImage } from 'react-icons/fa'
 import { z } from 'zod'
 import { useRouter } from 'next/router'
 import { useUser } from '@clerk/nextjs'
+import { sourceCodeToBytesCode } from '~/simulator/getBotFromChain'
 
 interface Item {
   id: number
@@ -35,6 +36,13 @@ export const CreateSurvivalPage: NextPage = () => {
       botImageUrl: z.string().nonempty(),
       yourcode: z.string().nonempty(),
     })
+
+    if (!sourceCodeToBytesCode(yourCodeRef?.current?.value || '')) {
+      alert('Invalid code!')
+    } else {
+      return
+    }
+
     const payload = {
       botImageUrl: imageUrl,
       botName: botNameRef?.current?.value || '',

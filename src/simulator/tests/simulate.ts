@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { instantiateEVM } from '../evm'
-import { getBotFromCode } from '../getBotFromChain'
+import { getBotFromCode, sourceCodeToBytesCode } from '../getBotFromChain'
 import { Islander } from '../islander'
 import { Simulator } from '../simulator'
 import { emptyIslanderInfo, emptyWorld } from '../types'
@@ -23,13 +23,69 @@ import { AggressiveBot, BalancedBot } from './bots'
 //)
 //simulator.step(1000)
 //console.log(simulator.islanders.map((e) => e.score))
-;(async () => {
-  const vm = await instantiateEVM()
-  const bot = await getBotFromCode(vm)
+const bytesCode = sourceCodeToBytesCode(`
+contract Bot is IIslander {
+function planHarvest(
+World memory,
+IslanderInfo memory
+) external pure override returns (Resources memory) {
+// spend time equally on all resources
+return Resources(10, 10, 10, 10, 10, 10);
+}
 
-  const NO_BOTS = 8
-  const randomness = BigInt('1234567')
-  const simulator = new Simulator([bot, bot, bot, bot, bot, bot, bot, bot], randomness)
-  await simulator.step(1000)
-  console.log(simulator.islanders.map((e) => e.score))
+function planCommunityBuild(
+World memory,
+IslanderInfo memory self
+) external pure override returns (Buildings memory) {
+uint32 woodPerStuff = self.resources.wood / 10;
+uint32 rockPerStuff = self.resources.rock / 6;
+return
+Buildings(
+ResourcesUnit(woodPerStuff, woodPerStuff, woodPerStuff),
+woodPerStuff,
+woodPerStuff,
+rockPerStuff,
+rockPerStuff,
+rockPerStuff
+);
+}
+
+function planPersonalBuild(
+World memory,
+IslanderInfo memory self
+) external pure override returns (Buildings memory) {
+uint32 woodPerStuff = self.resources.wood / 5;
+uint32 rockPerStuff = self.resources.rock / 3;
+return
+Buildings(
+ResourcesUnit(woodPerStuff, woodPerStuff, woodPerStuff),
+woodPerStuff,
+woodPerStuff,
+rockPerStuff,
+rockPerStuff,
+rockPerStuff
+);
+}
+
+function planVisit(
+World memory,
+IslanderInfo calldata,
+IslanderInfo calldata,
+uint32,
+uint32
+) external pure override returns (Action) {
+// never attack
+return Action.Nothing;
+}
+}
+`)
+console.log(bytesCode)
+;(async () => {
+  //const vm = await instantiateEVM()
+  //const bot = await getBotFromCode(vm)
+  //const NO_BOTS = 8
+  //const randomness = BigInt('1234567')
+  //const simulator = new Simulator([bot, bot, bot, bot, bot, bot, bot, bot], randomness)
+  //await simulator.step(1000)
+  //console.log(simulator.islanders.map((e) => e.score))
 })()

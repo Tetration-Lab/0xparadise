@@ -8,6 +8,7 @@ import { MainLayout } from '../../components/MainLayout'
 
 import { createColumnHelper } from '@tanstack/react-table'
 import { SummaryTable } from './SummaryTable'
+import { FaPlus } from 'react-icons/fa'
 import Link from 'next/link'
 
 interface Item {
@@ -46,16 +47,20 @@ export const AccountPage: NextPage = () => {
       </Head>
       <main className="">
         <MainLayout heroSection={<>Account Page</>}>
-          <div className="p-4">
+          <div className="bg-[#DBD7C6] p-4 text-black">
             <div className="mb-4 space-x-2">
               <span>My Survivors</span>
-              <span>+</span>
               <Link href="/create-survival">
-                <button className="rounded-lg border px-4 py-2">Create New</button>
+                <button className="rounded-lg border bg-black px-4 py-2 text-white">
+                  <div className="flex items-center space-x-2">
+                    <FaPlus />
+                    <span>Create New</span>
+                  </div>
+                </button>
               </Link>
             </div>
-            <div className="space-y-4">
-              hello {JSON.stringify(data?.list)}
+            <div className="space-y-4 rounded-lg bg-[#B1A6A0] p-4 ">
+              <div className="overflow-auto text-black">hello {JSON.stringify(data?.list)}</div>
               {data?.list.map((item, index) => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.profileImageUrl} key={index} width={64} height={64} alt="avatar" />

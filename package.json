@@ -24,8 +24,6 @@
     "@trpc/server": "^10.18.0",
     "@uploadthing/react": "^3.0.4",
     "classnames": "^2.3.2",
-
-    "ethers": "^6.4.0",
     "daisyui": "^2.51.6",
     "ethers": "^6.4.0",
     "framer-motion": "^10.12.10",
@@ -37,9 +35,6 @@
     "react-slick": "^0.29.0",
     "react-swipe": "^6.0.4",
     "superjson": "1.12.2",
-
-    "ts-node": "^10.9.1",
-
     "swipe-js-iso": "^2.1.5",
     "ts-node": "^10.9.1",
     "uploadthing": "^3.0.4",

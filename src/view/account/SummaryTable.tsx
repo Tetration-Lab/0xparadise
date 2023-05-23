@@ -75,7 +75,7 @@ const columns = [
             <Link href="/">View code</Link>
           </div>
           <div className="bg-[#EAA040] text-center">
-            <Link href="/">Game history</Link>
+            <Link href="/game">Game history</Link>
           </div>
         </div>
       </>

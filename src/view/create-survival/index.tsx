@@ -66,6 +66,7 @@ export const CreateSurvivalPage: NextPage = () => {
     try {
       const resp = await createBot(payload)
       await createSim()
+      console.log('done')
       void router.push('/account')
     } catch (e) {
       alert('Create bot error!')

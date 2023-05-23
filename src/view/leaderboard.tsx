@@ -70,7 +70,7 @@ export const LeaderBoardPage: NextPage = () => {
           <div className="flex min-h-screen bg-[#E0DACF] p-8">
             <div className="w-3/5">
               <h1 className="text-xl font-semibold uppercase text-black">Leaderboard</h1>
-              <div className="my-4 px-4">
+              <div className="my-4">
                 <LeaderboardGameTable />
                 {/* {recentGames?.list.map((game, index) => {
                   return (
@@ -84,7 +84,7 @@ export const LeaderBoardPage: NextPage = () => {
               </div>
             </div>
             <div className="w-2/5">
-              <h1 className="text-xl font-semibold uppercase text-black">All Recent Games</h1>
+              <h1 className="px-4 text-xl font-semibold uppercase text-black">All Recent Games</h1>
               <div className="my-4 px-4">
                 <RecentGameTable />
               </div>

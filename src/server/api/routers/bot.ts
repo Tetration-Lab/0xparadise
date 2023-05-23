@@ -3,6 +3,12 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc'
 
 export const botRouter = createTRPCRouter({
+  list: publicProcedure.query(async ({ ctx }) => {
+    const list = await ctx.prisma.bot.findMany()
+    return {
+      list: list,
+    }
+  }),
   create: protectedProcedure
     .input(z.object({ botImageUrl: z.string(), botName: z.string(), yourcode: z.string() }))
     .mutation(async ({ ctx, input }) => {

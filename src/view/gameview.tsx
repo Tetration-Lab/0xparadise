@@ -7,9 +7,10 @@ import { PlayerStatisticItem } from '../components/PlayerStatisticItem'
 import { useUser } from '@clerk/nextjs'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { api } from '../utils/api'
 
 export const GameViewPage: NextPage = () => {
-  const mockID = `646cb0045fdf294ab474a7f0`
+  // const mockID = `646cb0045fdf294ab474a7f0`
   // const user = useUser()
   // const router = useRouter()
   // useEffect(() => {
@@ -17,6 +18,7 @@ export const GameViewPage: NextPage = () => {
   //     void router.push('/')
   //   }
   // }, [user])
+  // const { data } = api.game.get.useQuery({ gameId: mockID })}
   return (
     <>
       <Head>

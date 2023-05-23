@@ -1,22 +1,21 @@
 import { Transaction } from '@ethereumjs/tx'
 import { VM } from '@ethereumjs/vm'
 import { hexToBytes } from 'ethereum-cryptography/utils'
-import { AbiCoder, ethers } from 'ethers'
-import { Interface } from 'readline'
-import { BYTES_CODE, INTERFACE } from './abi'
+import { ethers } from 'ethers'
+import { INTERFACE } from './abi'
 import { keyPair } from './evm'
 import { Islander } from './islander'
-import { Action, IslanderInfo, World } from './types'
+import { IslanderInfo, World } from './types'
 
-//export const getBotFromChain = async (provider: ethers.Provider, botAddress: string) => {
-//const code = await provider.getCode(botAddress)
-//}
-//
+export const getBotFromChain = async (vm: VM, provider: ethers.Provider, botAddress: string) => {
+  const code = await provider.getCode(botAddress)
+  return await getBotFromCode(vm, code)
+}
 
-export const getBotFromCode = async (vm: VM) => {
+export const getBotFromCode = async (vm: VM, code: string) => {
   const tx = await vm.runTx({
     tx: Transaction.fromTxData({
-      data: BYTES_CODE,
+      data: code,
       nonce: (await vm.stateManager.getAccount(keyPair.address).then((e) => e.nonce)) ?? 0n,
       gasLimit: 20000000,
       gasPrice: 7,

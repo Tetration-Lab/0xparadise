@@ -4,10 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { api } from '~/utils/api'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { MainLayout } from '../../components/MainLayout'
 import { UploadButton } from '@uploadthing/react'
 import { type OurFileRouter } from '../../server/uploadthing'
+import { FaImage } from 'react-icons/fa'
+
+import { z } from 'zod'
+import { useRouter } from 'next/router'
 
 interface Item {
   id: number
@@ -19,12 +23,34 @@ interface Item {
 export const CreateSurvivalPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const { mutateAsync: createBot } = api.bot.create.useMutation()
-
+  const botNameRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
   const onSubmit = async () => {
-    const resp = await createBot({
-      botImageUrl: imageUrl,
+    // validate
+
+    const schema = z.object({
+      botName: z.string().nonempty(),
+      botImageUrl: z.string().nonempty(),
     })
+    const payload = {
+      botImageUrl: imageUrl,
+      botName: botNameRef?.current?.value || '',
+    }
+    const result = schema.safeParse(payload)
+    console.log(result)
+    if (!result.success) {
+      const errMsg = result.error.errors
+        .map((err) => {
+          const pathErr = (err.path.length > 0 ? err.path[0] : '') as string
+          return `♥ ${pathErr} ${err.message}`
+        })
+        .join('\n')
+      alert(errMsg)
+      return
+    }
+    const resp = await createBot(payload)
     alert(`done bot ID:${resp.id}`)
+    void router.push('/account')
   }
   return (
     <>
@@ -33,33 +59,38 @@ export const CreateSurvivalPage: NextPage = () => {
         <meta name="description" content="0xparadise" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
+      <main className="bg-[#DBD7C6] text-black">
         <MainLayout>
-          <div className="mt-4 flex items-center space-x-2">
+          <div className="mt-4 flex items-center space-x-2 p-4">
             {/* TODO: move to component */}
             {/* title */}
             <div>
               <Link href="/account">
-                <button className="rounded-lg border p-2">Back</button>
+                <button className="rounded-lg border bg-black p-2 text-white">Back</button>
               </Link>
             </div>
-            <div className=" uppercase">Create new survival</div>
+            <div className="uppercase">Create new survival</div>
           </div>
           {/* content */}
-          <div className="p-10 pb-16">
-            <div className="mt-4 space-y-4 rounded-lg border border-dashed p-4">
+          <div className="p-4 pb-16">
+            <div className="mt-4 space-y-4 rounded-lg bg-[#B1A6A0] p-4">
+              {/*  */}
+              <div className="space-y-2">
+                <div>Name Your Character</div>
+                <input ref={botNameRef} className="w-full max-w-xl border bg-[#FEF9EB] p-2" />
+              </div>
               {/* uploader */}
               <div className="">
                 <div className="mb-4">
                   <div className="text-lg">Upload your bot Avatar</div>
                 </div>
-                <div className="h-36 w-36 border-2 border-dashed border-white">
-                  <div className="relative h-full w-full bg-gray-50">
+                <div className="h-36 w-36 border-white">
+                  <div className="relative h-full w-full bg-[#FEF9EB]">
                     <button className="absolute h-full w-full">
                       <div className="flex flex-col justify-start bg-blue-500"></div>
                       {/* // eslint-disable-next-line @next/next/no-img-element */}
                     </button>
-                    {imageUrl && (
+                    {imageUrl ? (
                       <Image
                         className='w-full" absolute h-full object-cover'
                         src={imageUrl}
@@ -67,6 +98,10 @@ export const CreateSurvivalPage: NextPage = () => {
                         width={320}
                         height={320}
                       />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <FaImage className="h-8 w-8" />
+                      </div>
                     )}
                     <div className="absolute inset-0 z-10 h-full w-full bg-red-500 opacity-0">
                       <UploadButton<OurFileRouter>
@@ -92,12 +127,12 @@ export const CreateSurvivalPage: NextPage = () => {
 
               <div>
                 <div className="mb-4">Example Template</div>
-                <textarea className="w-1/2 bg-gray-100" name="" id="" cols={30} rows={10}></textarea>
+                <textarea className="w-full max-w-xl bg-[#FEF9EB]" name="" id="" cols={30} rows={10}></textarea>
               </div>
 
               <div>
                 <div className="mb-4">Deploy your code</div>
-                <textarea className="w-1/2 bg-gray-100" name="" id="" cols={30} rows={10}></textarea>
+                <textarea className="w-full max-w-xl bg-[#FEF9EB]" name="" id="" cols={30} rows={10}></textarea>
               </div>
 
               <div>
@@ -106,7 +141,10 @@ export const CreateSurvivalPage: NextPage = () => {
               </div>
 
               <div>
-                <button onClick={() => void onSubmit()} className="rounded-lg border px-6 py-3">
+                <button
+                  onClick={() => void onSubmit()}
+                  className="rounded-lg border border-black bg-[#92C341] px-6 py-3 text-white"
+                >
                   Create Now
                 </button>
               </div>

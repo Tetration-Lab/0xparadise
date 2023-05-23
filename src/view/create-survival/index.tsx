@@ -18,6 +18,14 @@ interface Item {
 
 export const CreateSurvivalPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
+  const { mutateAsync: createBot } = api.bot.create.useMutation()
+
+  const onSubmit = async () => {
+    const resp = await createBot({
+      botImageUrl: imageUrl,
+    })
+    alert(`done bot ID:${resp.id}`)
+  }
   return (
     <>
       <Head>
@@ -45,10 +53,10 @@ export const CreateSurvivalPage: NextPage = () => {
                 <div className="mb-4">
                   <div className="text-lg">Upload your bot Avatar</div>
                 </div>
-                <div className="h-36 w-36 border-2 border-dashed">
-                  <div className="relative h-full w-full">
+                <div className="h-36 w-36 border-2 border-dashed border-white">
+                  <div className="relative h-full w-full bg-gray-50">
                     <button className="absolute h-full w-full">
-                      <div className="flex flex-col justify-start bg-blue-500">hello</div>
+                      <div className="flex flex-col justify-start bg-blue-500"></div>
                       {/* // eslint-disable-next-line @next/next/no-img-element */}
                     </button>
                     {imageUrl && (
@@ -98,7 +106,9 @@ export const CreateSurvivalPage: NextPage = () => {
               </div>
 
               <div>
-                <button className="rounded-lg border px-6 py-3">Create Now</button>
+                <button onClick={onSubmit} className="rounded-lg border px-6 py-3">
+                  Create Now
+                </button>
               </div>
             </div>
           </div>

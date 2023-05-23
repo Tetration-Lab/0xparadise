@@ -10,6 +10,7 @@ export const Carousel: React.FC = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: false,
+    autoplay: true,
   }
   return (
     <Slider className="text-white" {...settings}>

@@ -19,6 +19,7 @@ interface Item {
 export const AccountPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
+  const { data, isLoading } = api.bot.listSelfBot.useQuery()
   const mock = () => {
     const random = Math.floor(Math.random() * 100)
     const mockItem = {
@@ -54,6 +55,10 @@ export const AccountPage: NextPage = () => {
               </Link>
             </div>
             <div className="space-y-4">
+              hello {JSON.stringify(data?.list)}
+              {data?.list.map((item) => (
+                <img src={item.profileImageUrl} width={64} height={64} />
+              ))}
               {Array.from(Array(10).keys()).map((item) => (
                 <>
                   <div className="mb-2 text-lg">BOT {item}</div>

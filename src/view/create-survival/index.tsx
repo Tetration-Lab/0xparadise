@@ -38,11 +38,11 @@ export const CreateSurvivalPage: NextPage = () => {
       yourcode: z.string().nonempty(),
     })
 
-    if (!sourceCodeToBytesCode(yourCodeRef?.current?.value || '')) {
-      alert('Invalid code!')
-    } else {
-      return
-    }
+    // if (!sourceCodeToBytesCode(yourCodeRef?.current?.value || '')) {
+    //   alert('Invalid code!')
+    // } else {
+    //   return
+    // }
 
     const payload = {
       botImageUrl: imageUrl,

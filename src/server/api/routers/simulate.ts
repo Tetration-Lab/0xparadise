@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { createTRPCRouter, publicProcedure } from '~/server/api/trpc'
 import { instantiateEVM } from '~/simulator/evm'
 import { getBotFromCode, sourceCodeToBytesCode } from '~/simulator/getBotFromChain'
-import { Islander } from '~/simulator/islander'
+import { type Islander } from '~/simulator/islander'
 import { Simulator } from '~/simulator/simulator'
 
 import JsonBIG from 'json-bigint'
@@ -52,7 +52,10 @@ export const simulatorRouter = createTRPCRouter({
           },
         })
       }
-    } catch {}
+    } catch (e) {
+      console.log(e)
+      throw e
+    }
   }),
 
   //getAll: publicProcedure.query(({ ctx }) => {

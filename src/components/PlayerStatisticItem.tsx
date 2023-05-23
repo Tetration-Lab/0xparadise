@@ -4,19 +4,17 @@ import { nthNumber } from '../utils'
 interface Props {
   position: number
   avatarImage: string
+  tp: number
+  sp: number
+  pp: number
 }
-export const PlayerStatisticItem: React.FC<Props> = ({ position }) => {
+
+export const PlayerStatisticItem: React.FC<Props> = ({ position, avatarImage, tp, sp, pp }) => {
   return (
     <div className="flex w-full flex-shrink-0 bg-black bg-opacity-50 p-1">
       <div className="space-y-1 pr-1">
         <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
-          <Image
-            className="pixelated h-full w-full"
-            src={'/image/item/timber-item.png'}
-            width={16}
-            height={16}
-            alt={'logo'}
-          />
+          <Image className="pixelated h-full w-full" src={avatarImage} width={16} height={16} alt={'logo'} />
           <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">50</div>
         </div>
 
@@ -58,10 +56,10 @@ export const PlayerStatisticItem: React.FC<Props> = ({ position }) => {
             <div className="text-[#FF626B]">HP: 10/10</div>
           </div>
           <div className="w-1/2 flex-shrink-0">
-            <div className="text-[#FCB42B]">TP: 1,900</div>
+            <div className="text-[#FCB42B]">TP: {tp.toLocaleString('en-US')}</div>
             <div className="ml-2 text-xs text-[#FDD44E]">
-              <div>PP: 1,900</div>
-              <div>PP: 1,900</div>
+              <div>SP: {sp.toLocaleString('en-US')}</div>
+              <div>PP: {pp.toLocaleString('en-US')}</div>
             </div>
           </div>
         </div>

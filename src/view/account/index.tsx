@@ -11,33 +11,10 @@ import { SummaryTable } from './SummaryTable'
 import { FaPlus } from 'react-icons/fa'
 import Link from 'next/link'
 
-interface Item {
-  id: number
-  name: string
-  botName: string
-  score: number
-}
 export const AccountPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
-  const [items, setItems] = useState<Item[]>([])
   const { data: botList, isLoading } = api.bot.listSelfBot.useQuery()
   type BotList = typeof botList
-  const mock = () => {
-    const random = Math.floor(Math.random() * 100)
-    const mockItem = {
-      id: items.length + 1,
-      name: `test ${random}`,
-      botName: `test botname ${random}`,
-      score: random,
-    }
-    const newVal = [...items, mockItem].sort((a, b) => b.score - a.score)
-    setItems(newVal)
-  }
-
-  const removeMock = () => {
-    const newItems = items.slice(0, items.length - 1)
-    setItems(newItems)
-  }
 
   const formatDataForTable = (data: BotList) => {
     if (!data?.list || !data) {
@@ -48,12 +25,9 @@ export const AccountPage: NextPage = () => {
       return {
         botImageUrl: item.profileImageUrl,
         name: item.name,
-        deployOn: item.createdAt.toISOString(),
-        gamePlayTotal: 0,
-        maxSurvival: 0,
-        totalPP: 0,
-        totalSP: 0,
-        totalPoint: 0,
+        deployOn: item.createdAt.toDateString(),
+        gamePlayTotal: item.gamePlayed ?? 0,
+        totalPoint: item.totalPoint ?? 0,
       }
     })
   }

@@ -8,24 +8,8 @@ type SummaryDataProps = {
   name: string
   deployOn: string
   gamePlayTotal: number
-  maxSurvival: number
-  totalPP: number
-  totalSP: number
   totalPoint: number
 }
-
-const defaultData: SummaryDataProps[] = [
-  {
-    botImageUrl: '',
-    name: 'v1',
-    deployOn: 'yesterday',
-    gamePlayTotal: 100,
-    maxSurvival: 0,
-    totalPP: 100,
-    totalSP: 100,
-    totalPoint: 100,
-  },
-]
 
 const columnHelper = createColumnHelper<Partial<SummaryDataProps>>()
 
@@ -41,31 +25,19 @@ const columns = [
   columnHelper.accessor((row) => row.name, {
     id: 'name',
     cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Name</span>,
+    header: () => 'Name',
   }),
   columnHelper.accessor('deployOn', {
     cell: (info) => info.getValue(),
-    header: () => 'deployOn',
+    header: () => 'Created At',
   }),
   columnHelper.accessor('gamePlayTotal', {
     cell: (info) => info.getValue(),
-    header: () => 'gamePlayTotal',
-  }),
-  columnHelper.accessor('maxSurvival', {
-    cell: (info) => info.getValue(),
-    header: () => 'maxSurvival',
-  }),
-  columnHelper.accessor('totalPP', {
-    cell: (info) => info.getValue(),
-    header: () => 'totalPP',
-  }),
-  columnHelper.accessor('totalSP', {
-    cell: (info) => info.getValue(),
-    header: () => 'totalSP',
+    header: () => 'Game Played',
   }),
   columnHelper.accessor('totalPoint', {
     cell: (info) => info.getValue(),
-    header: () => 'totalPoint',
+    header: () => 'Total Point',
   }),
   columnHelper.accessor('management', {
     cell: (info) => (

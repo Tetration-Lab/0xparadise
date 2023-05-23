@@ -9,6 +9,7 @@ import { type Islander } from '~/simulator/islander'
 import { Simulator } from '~/simulator/simulator'
 
 import JsonBIG from 'json-bigint'
+import { TRPCError } from '@trpc/server'
 
 const PLAYERS = 8
 
@@ -24,11 +25,11 @@ export const simulatorRouter = createTRPCRouter({
       for (const i of indexes) {
         const islander = sourceCodeToBytesCode(bots[i]!.yourcode)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        const bot = await getBotFromCode(vm, islander)
+        const bot = await getBotFromCode(vm, islander!)
         islanders.push(bot)
       }
 
-      const simulation = new Simulator(islanders, BigInt(Math.random() * 100_000_000))
+      const simulation = new Simulator(islanders, BigInt(Math.floor(Math.random() * 100_000_000)))
       const [days, scores] = await simulation.stepUntilEnd()
 
       const round = await ctx.prisma.round.create({
@@ -55,6 +56,17 @@ export const simulatorRouter = createTRPCRouter({
     } catch (e) {
       console.log(e)
       throw e
+    }
+  }),
+
+  check: publicProcedure.input(z.string()).mutation(async ({ input }) => {
+    try {
+      if (!sourceCodeToBytesCode(input)) throw new Error()
+    } catch {
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Unable to compile source code',
+      })
     }
   }),
 

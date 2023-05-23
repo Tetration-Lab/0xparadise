@@ -150,7 +150,7 @@ interface IIslander {
     return undefined
   }
 
-  return output.contracts['Bot.sol'].Bot.evm.bytecode.object
+  return `0x${output.contracts['Bot.sol'].Bot.evm.bytecode.object}`
 }
 
 export const getBotFromCode = async (vm: VM, code: string) => {

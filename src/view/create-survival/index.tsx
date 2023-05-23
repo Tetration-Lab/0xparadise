@@ -26,6 +26,7 @@ export const CreateSurvivalPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const { mutateAsync: createBot } = api.bot.create.useMutation()
   const { mutateAsync: createSim } = api.simulate.simulate.useMutation()
+  const { mutateAsync: check } = api.simulate.check.useMutation()
   const botNameRef = useRef<HTMLInputElement>(null)
   const yourCodeRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
@@ -38,11 +39,12 @@ export const CreateSurvivalPage: NextPage = () => {
       yourcode: z.string().nonempty(),
     })
 
-    // if (!sourceCodeToBytesCode(yourCodeRef?.current?.value || '')) {
-    //   alert('Invalid code!')
-    // } else {
-    //   return
-    // }
+    try {
+      await check(yourCodeRef?.current?.value || '')
+    } catch (error) {
+      alert('Invalid code!')
+      return
+    }
 
     const payload = {
       botImageUrl: imageUrl,

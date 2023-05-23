@@ -72,7 +72,7 @@ export const CreateSurvivalPage: NextPage = () => {
             <div className="">Create new survival</div>
           </div>
           {/* content */}
-          <div className="p-4 pb-16">
+          <div className="bg-[#DBD7C6] p-4 pb-16">
             <div className="mt-4 space-y-4 rounded-lg bg-[#B1A6A0] p-4">
               {/*  */}
               <div className="space-y-2">

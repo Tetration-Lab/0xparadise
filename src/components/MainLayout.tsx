@@ -49,7 +49,7 @@ export const MainLayout: React.FC<Props> = ({ children, heroSection }) => {
         >
           <SideBar />
         </div>
-        <div className="lg:pl-64">
+        <div className="h-screen bg-[#DBD7C6] lg:pl-64">
           {/* hero section */}
           <HeroSection />
           {/* content */}

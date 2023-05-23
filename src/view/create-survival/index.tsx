@@ -69,6 +69,9 @@ export const CreateSurvivalPage: NextPage = () => {
       alert('Create bot error!')
     }
   }
+  const testSim = async () => {
+    void (await createSim())
+  }
   const user = useUser()
   return (
     <>
@@ -165,12 +168,18 @@ export const CreateSurvivalPage: NextPage = () => {
                 be made until redeployed again blah blah blah
               </div>
 
-              <div>
+              <div className="space-x-2">
                 <button
                   onClick={() => void onSubmit()}
                   className="rounded-lg border border-black bg-[#92C341] px-6 py-3 text-white"
                 >
                   Create Now
+                </button>
+                <button
+                  onClick={() => void testSim()}
+                  className="rounded-lg border border-black bg-[#f11616] px-6 py-3 text-white"
+                >
+                  Test Sim
                 </button>
               </div>
             </div>

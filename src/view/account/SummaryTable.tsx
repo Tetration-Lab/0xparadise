@@ -50,9 +50,9 @@ const columns = [
           {/* <div className="bg-[#EAA040] text-center">
             <Link href="/game">Game history</Link>
           </div> */}
-          {info.getValue()?.map((gameId) => (
+          {info.getValue()?.map((gameId, index) => (
             <div key={gameId} className="my-1 bg-[#EAA040] text-center">
-              <Link href={`/game?id=${gameId}`}>Game history</Link>
+              <Link href={`/game?id=${gameId}`}>Game history: {`${index + 1}`}</Link>
             </div>
           ))}
         </div>

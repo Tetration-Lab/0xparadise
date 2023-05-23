@@ -82,10 +82,12 @@ return Action.Nothing;
 }
 }
 `)
-console.log(bytesCode)
+//console.log(bytesCode)
 ;(async () => {
-  //const vm = await instantiateEVM()
-  //const bot = await getBotFromCode(vm)
+  const vm = await instantiateEVM()
+  const bot = await getBotFromCode(vm, bytesCode!)
+  const plan = await bot.planHarvest({ ...emptyWorld }, { ...emptyIslanderInfo })
+  console.log(plan)
   //const NO_BOTS = 8
   //const randomness = BigInt('1234567')
   //const simulator = new Simulator([bot, bot, bot, bot, bot, bot, bot, bot], randomness)

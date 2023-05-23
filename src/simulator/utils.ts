@@ -18,7 +18,21 @@
 
 import { communityHarvestBonus, individualHarvestBonus } from './bonus'
 import { Constants } from './constants'
-import { type Resources, type ResourcesUnit } from './types'
+import { IslanderInfo, World, type Resources, type ResourcesUnit } from './types'
+
+export const calculateScore = (world: World, islander: IslanderInfo) => {
+  const communityScore =
+    world.buildings.statue * Constants.POINT_PER_STATUE +
+    (world.buildings.survival +
+      world.buildings.protection +
+      world.buildings.harvest.food +
+      world.buildings.harvest.rock +
+      world.buildings.harvest.wood) *
+      Constants.POINT_PER_BUILDING
+  const personalScore =
+    islander.pearl * Constants.POINT_PER_PEARL + BigInt(islander.dayLived) * Constants.POINT_PER_DAY_LIVED
+  return [communityScore, personalScore] as const
+}
 
 export const min = (x: bigint, y: bigint) => {
   return x < y ? x : y

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { nthNumber } from '../utils'
 // TODO: add props
 interface Props {
+  name: string
   position: number
   avatarImage: string
   tp: number
@@ -39,12 +40,19 @@ export const PlayerStatisticItem: React.FC<Props> = ({
   timber,
   fruit,
   stone,
+  name,
 }) => {
   return (
     <div className="flex w-full flex-shrink-0 bg-black bg-opacity-50 p-1">
       <div className="space-y-1 pr-1">
         <div className="relative h-8 w-8 bg-[#4E4B4B] p-1">
-          <Image className="pixelated h-full w-full" src={avatarImage} width={16} height={16} alt={'logo'} />
+          <Image
+            className="pixelated h-full w-full"
+            src="/image/item/timber-item.png"
+            width={16}
+            height={16}
+            alt={'logo'}
+          />
           <div className="absolute bottom-0 right-0 bg-black bg-opacity-25 px-1 text-[8px] text-white">{timber}</div>
         </div>
 
@@ -71,9 +79,9 @@ export const PlayerStatisticItem: React.FC<Props> = ({
       </div>
 
       <div className="relative h-auto w-16 flex-shrink-0">
-        <Image className="h-full object-cover" src={'/image/stat-avatar.png'} width={64} height={86} alt="avatar" />
+        <Image className="h-full object-cover" src={avatarImage} width={64} height={86} alt="avatar" />
         <div className="absolute bottom-0 w-full bg-black bg-opacity-80">
-          <div className="truncate text-xs text-white">0xANYA</div>
+          <div className="truncate text-xs text-white">{name}</div>
         </div>
       </div>
       <div className="flex w-full flex-col justify-between">

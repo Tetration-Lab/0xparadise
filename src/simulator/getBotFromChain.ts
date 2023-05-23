@@ -123,9 +123,10 @@ interface IIslander {
             enabled: true,
             runs: 200,
           },
+          evmVersion: 'paris',
           outputSelection: {
             '*': {
-              '*': ['abi', 'evm.bytecode'],
+              '*': ['*'],
             },
           },
         },

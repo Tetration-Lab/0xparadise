@@ -11,3 +11,18 @@ export const nthNumber = (number: number) => {
       return 'th'
   }
 }
+
+const N = 2
+
+export const formatBigint = (n?: bigint) => {
+  if (n) {
+    //const str = n.toString()
+    //const len = str.length
+    //if (len > N) {
+    //return `${str.slice(0, len - N)}.${str.slice(len - N)}`
+    //}
+    return n.toString()
+  } else {
+    return '0'
+  }
+}

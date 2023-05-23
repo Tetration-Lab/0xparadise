@@ -2,24 +2,76 @@ import { type NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import { nthNumber } from '../utils'
+import { formatBigint, nthNumber } from '../utils'
 import { PlayerStatisticItem } from '../components/PlayerStatisticItem'
 import { useUser } from '@clerk/nextjs'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { api } from '../utils/api'
+import JsonBIG from 'json-bigint'
+import { Day } from '~/simulator/types'
+import _ from 'lodash'
+import { calculateScore } from '~/simulator/utils'
 
 export const GameViewPage: NextPage = () => {
-  // const user = useUser()
   const router = useRouter()
   const { id } = router.query
-  // useEffect(() => {
-  //   if (!user.isSignedIn) {
-  //     void router.push('/')
-  //   }
-  // }, [user])
   const { data } = api.game.get.useQuery({ gameId: id as string })
-  console.log(data)
+  const { data: botList } = api.bot.list.useQuery()
+
+  const days: Day[] = useMemo(() => {
+    return JsonBIG.parse(data?.gameData?.days?.toString() ?? '[]')
+  }, [data])
+  const lastDay = days[days.length - 1]
+
+  const players = useMemo(() => {
+    return (data?.gameData?.islanderIds ?? []).map((e) => botList?.list?.find((b) => b.id === e))
+  }, [botList?.list, data?.gameData])
+
+  const gameLog = useMemo(() => {
+    const logs: React.ReactNode[] = []
+    for (let i = 0; i < days.length; i++) {
+      const day = days[i]
+      logs.push(<div className="text-green-500">{`Day ${i + 1}: Rise and shine`}</div>)
+      logs.push(<div className="text-orange-300">{`Phase I: Collecting`}</div>)
+      day?.islanders.forEach((islander, i) => {
+        const plan = islander.harvestPlan[islander.harvestPlan.length - 1]
+        logs.push(
+          <div className="text-gray-300">{`Player ${players[i]?.name}: Put effort to collect ${formatBigint(
+            plan?.animal,
+          )}, ${formatBigint(plan?.fish)} fish, ${formatBigint(plan?.fruit)} fruit, ${formatBigint(
+            plan?.pearl,
+          )} pearl, ${formatBigint(plan?.rock)} rock, ${formatBigint(plan?.wood)} wood.`}</div>,
+        )
+      })
+      logs.push(<div className="text-orange-300">{`Phase II: Building`}</div>)
+      day?.islanders.forEach((islander, i) => {
+        const commuPlan = islander.communityBuildingPlan[islander.communityBuildingPlan.length - 1]!
+        const personalPlan = islander.personalBuildingPlan[islander.personalBuildingPlan.length - 1]!
+        logs.push(
+          <div className="text-yellow-100">{`Player ${players[i]?.name}: Contribute ${formatBigint(
+            commuPlan?.survival + personalPlan?.survival,
+          )} to shelter, ${formatBigint(commuPlan?.protection + personalPlan?.survival)} to protection, ${formatBigint(
+            commuPlan?.statue,
+          )} to statue, ${formatBigint(commuPlan?.harvest?.food + personalPlan?.harvest?.food)} to bag, ${formatBigint(
+            commuPlan?.harvest?.rock + personalPlan?.harvest?.rock,
+          )} to pickaxe, ${formatBigint(commuPlan?.harvest?.wood + personalPlan?.harvest?.wood)} to shovel.`}</div>,
+        )
+      })
+      logs.push(<div className="text-orange-300">{`Phase III: Actions`}</div>)
+      day?.islanders.forEach((islander, j) => {
+        if ((days[i - 1]?.islanders[j]?.attacks?.length ?? 0) < (day.islanders[j]?.attacks?.length ?? 0)) {
+          const attacked = day.islanders[j]?.attacks?.[day.islanders[j]!.attacks!.length - 1]!
+          logs.push(
+            <div className="text-red-300">{`Player ${players[j]?.name} attack ${players[attacked]?.name}`}</div>,
+          )
+        }
+      })
+      const survivor = day?.islanders.filter((e) => e.dayLived > i)?.length
+      logs.push(<div className="text-blue-300">{`Remaining Survivor: ${survivor}`}</div>)
+    }
+    return logs
+  }, [days, players])
 
   return (
     <>
@@ -67,7 +119,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div>Stone</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.rock?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -81,7 +133,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div className="text-center">Meat</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.animal?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -96,7 +148,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div className="text-center">Fish</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.fish?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -111,7 +163,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div>Pearl</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.pearl?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -125,7 +177,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div>Timber</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.wood?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -140,7 +192,7 @@ export const GameViewPage: NextPage = () => {
                 <div className="absolute bottom-0 flex w-full justify-center pb-4 text-sm">
                   <div className="flex flex-col">
                     <div>Fruit</div>
-                    <div>25/25</div>
+                    <div>{formatBigint(lastDay?.world?.fruit?.supply)}</div>
                   </div>
                 </div>
               </div>
@@ -153,9 +205,9 @@ export const GameViewPage: NextPage = () => {
                 <ul className="my-2 space-y-2">
                   {/* mock array 100 item */}
                   <li className=" text-white underline">Action Log:</li>
-                  {Array.from(Array(100).keys()).map((item) => (
-                    <li className="py-2" key={item}>
-                      {item} hello
+                  {gameLog.map((item, i) => (
+                    <li className="py" key={i}>
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -179,28 +231,55 @@ export const GameViewPage: NextPage = () => {
               <div className="h-full">
                 <ul className="flex flex-1 flex-col space-y-1 p-2">
                   {/* mock array 100 item */}
-                  {Array.from(Array(8).keys()).map((item, index) => (
-                    <li className="" key={item}>
-                      <PlayerStatisticItem
-                        key={index}
-                        position={index + 1}
-                        hp={100}
-                        maxHp={100}
-                        avatarImage={'/image/item/timber-item.png'}
-                        tp={1900}
-                        sp={100}
-                        pp={1900}
-                        sword={10}
-                        armor={100}
-                        pickaxe={100}
-                        shovel={100}
-                        bag={100}
-                        timber={100}
-                        fruit={10}
-                        stone={100}
-                      />
-                    </li>
-                  ))}
+                  {(lastDay?.islanders ?? []).map((e, i) => {
+                    return (
+                      <li className="" key={i}>
+                        <PlayerStatisticItem
+                          name={players[i]?.name ?? ''}
+                          key={i}
+                          position={i + 1}
+                          hp={0}
+                          maxHp={100}
+                          avatarImage={players[i]?.profileImageUrl ?? ''}
+                          tp={1900}
+                          sp={100}
+                          pp={1900}
+                          sword={10}
+                          armor={100}
+                          pickaxe={100}
+                          shovel={100}
+                          bag={100}
+                          timber={100}
+                          fruit={10}
+                          stone={100}
+                        />
+                      </li>
+                    )
+                  })}
+                  {
+                    //Array.from(Array(8).keys()).map((item, index) => (
+                    //<li className="" key={item}>
+                    //<PlayerStatisticItem
+                    //key={index}
+                    //position={index + 1}
+                    //hp={100}
+                    //maxHp={100}
+                    //avatarImage={'/image/item/timber-item.png'}
+                    //tp={1900}
+                    //sp={100}
+                    //pp={1900}
+                    //sword={10}
+                    //armor={100}
+                    //pickaxe={100}
+                    //shovel={100}
+                    //bag={100}
+                    //timber={100}
+                    //fruit={10}
+                    //stone={100}
+                    ///>
+                    //</li>
+                    //))
+                  }
                 </ul>
               </div>
             </div>

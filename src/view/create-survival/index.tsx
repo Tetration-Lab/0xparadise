@@ -25,6 +25,7 @@ interface Item {
 export const CreateSurvivalPage: NextPage = () => {
   const [imageUrl, setImageUrl] = useState('')
   const { mutateAsync: createBot } = api.bot.create.useMutation()
+  const { mutateAsync: createSim } = api.simulate.simulate.useMutation()
   const botNameRef = useRef<HTMLInputElement>(null)
   const yourCodeRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
@@ -60,9 +61,13 @@ export const CreateSurvivalPage: NextPage = () => {
       alert(errMsg)
       return
     }
-    const resp = await createBot(payload)
-    alert(`done bot ID:${resp.id}`)
-    void router.push('/account')
+    try {
+      const resp = await createBot(payload)
+      await createSim()
+      void router.push('/account')
+    } catch (e) {
+      alert('Create bot error!')
+    }
   }
   const user = useUser()
   return (

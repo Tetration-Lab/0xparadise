@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { z } from 'zod'
 import _ from 'lodash'
 
@@ -22,6 +23,7 @@ export const simulatorRouter = createTRPCRouter({
       const islanders: Islander[] = []
       for (const i of indexes) {
         const islander = sourceCodeToBytesCode(bots[i]!.yourcode)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         const bot = await getBotFromCode(vm, islander)
         islanders.push(bot)
       }
@@ -37,7 +39,7 @@ export const simulatorRouter = createTRPCRouter({
       })
 
       for (let i = 0; i < indexes.length; i++) {
-        ctx.prisma.bot.update({
+        await ctx.prisma.bot.update({
           where: { id: bots[indexes[i]!]!.id },
           data: {
             gamePlayed: {

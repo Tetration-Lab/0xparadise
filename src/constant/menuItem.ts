@@ -7,11 +7,11 @@ export const menuItems = [
     text: 'My Account',
     url: '/account',
   },
-  {
-    text: 'No Code',
-    url: 'https://tetration-lab-islander-builder-app-602shh.streamlit.app/',
-    target: '_blank',
-  },
+  // {
+  //   text: 'No Code',
+  //   url: 'https://tetration-lab-islander-builder-app-602shh.streamlit.app/',
+  //   target: '_blank',
+  // },
   {
     text: 'Twitter',
     url: 'https://twitter.com/Tetration_Lab',

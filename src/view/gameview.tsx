@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { type NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -9,7 +13,7 @@ import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { api } from '../utils/api'
 import JsonBIG from 'json-bigint'
-import { Day } from '~/simulator/types'
+import { type Day } from '~/simulator/types'
 import _ from 'lodash'
 import { calculateScore } from '~/simulator/utils'
 
@@ -19,7 +23,9 @@ export const GameViewPage: NextPage = () => {
   const { data } = api.game.get.useQuery({ gameId: id as string })
   const { data: botList } = api.bot.list.useQuery()
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const days: Day[] = useMemo(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return JsonBIG.parse(data?.gameData?.days?.toString() ?? '[]')
   }, [data])
   const lastDay = days[days.length - 1]
@@ -61,7 +67,7 @@ export const GameViewPage: NextPage = () => {
       logs.push(<div className="text-orange-300">{`Phase III: Actions`}</div>)
       day?.islanders.forEach((islander, j) => {
         if ((days[i - 1]?.islanders[j]?.attacks?.length ?? 0) < (day.islanders[j]?.attacks?.length ?? 0)) {
-          const attacked = day.islanders[j]?.attacks?.[day.islanders[j]!.attacks!.length - 1]!
+          const attacked = day.islanders[j]?.attacks?.[day.islanders[j]!.attacks.length - 1]!
           logs.push(
             <div className="text-red-300">{`Player ${players[j]?.name} attack ${players[attacked]?.name}`}</div>,
           )

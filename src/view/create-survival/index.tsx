@@ -100,7 +100,7 @@ export const CreateSurvivalPage: NextPage = () => {
                 href="https://tetration-lab-islander-builder-app-602shh.streamlit.app/"
                 target="_blank"
               >
-                Create new surival with no code tool
+                No Code Survivor
               </Link>
             </div>
           </div>

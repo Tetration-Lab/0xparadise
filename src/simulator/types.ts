@@ -29,10 +29,10 @@ export interface IslanderInfo {
   harvestPlan: Resources[]
   communityBuildingPlan: Buildings[]
   personalBuildingPlan: Buildings[]
-  kills: bigint[]
-  attacks: bigint[]
-  attacked: bigint[]
-  heals: bigint[]
+  kills: number[]
+  attacks: number[]
+  attacked: number[]
+  heals: number[]
 }
 
 export interface ResourcesUnit {

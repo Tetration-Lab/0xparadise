@@ -7,6 +7,7 @@ import { Constants } from './constants'
 import { type Islander } from './islander'
 import {
   Action,
+  Day,
   emptyBuildings,
   emptyResources,
   emptyResourcesUnit,
@@ -89,6 +90,22 @@ export class Simulator {
         break
       }
     }
+  }
+
+  async stepUntilEnd() {
+    const days: Day[] = []
+    while (!this.isEnded) {
+      await this.harvestPhase()
+      await this.communityBuildPhase()
+      await this.personalBuildPhase()
+      await this.visitPhase()
+      this.worldUpdate()
+      days.push({
+        world: { ...this.world },
+        islanders: this.islanders.map((itf) => ({ ...itf.info })),
+      })
+    }
+    return [days, this.islanders.map((e) => e.score)] as const
   }
 
   async harvestPhase() {
@@ -305,6 +322,12 @@ export class Simulator {
             // Add damage to self and other islander
             healthDiffs[i] += damageTakenIfAttack
             healthDiffs[j] += damageDealtIfAttack
+            this.islanders[i]!.info.attacks.push(i)
+            this.islanders[j]!.info.attacked.push(i)
+
+            if (this.islanders[j]!.info.hp <= damageDealtIfAttack) {
+              this.islanders[i]!.info.kills.push(j)
+            }
           }
         } catch {}
       }

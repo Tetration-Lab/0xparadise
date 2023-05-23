@@ -26,6 +26,8 @@ export const botRouter = createTRPCRouter({
           name: input.botName,
           yourcode: input.yourcode,
           userAddress: address || '',
+          gamePlayed: 0,
+          roundIds: [],
         },
       })
     }),

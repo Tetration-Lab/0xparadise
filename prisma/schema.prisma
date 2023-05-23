@@ -30,20 +30,11 @@ model SyncUser {
   wallets         String[]
 }
 
-model BotSnapshot {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  version   String
-  Bot       Bot?     @relation(fields: [botId], references: [id])
-  botId     String?  @db.ObjectId
-}
-
 model Bot {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  name            String
   userID          String
   profileImageUrl String
-  botSnapshots    BotSnapshot[]
 }

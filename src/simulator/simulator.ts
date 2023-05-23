@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ethers } from 'ethers'
 import { communitySurvivalBonus, individualAttackBonus, individualDefenseBonus, individualSurvivalBonus } from './bonus'

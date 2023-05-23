@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Islander } from '../islander'
 import { World, IslanderInfo, Resources, Buildings, Action, emptyBuildings } from '../types'
 

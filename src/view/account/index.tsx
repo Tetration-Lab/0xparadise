@@ -20,7 +20,8 @@ interface Item {
 export const AccountPage: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: 'from tRPC' })
   const [items, setItems] = useState<Item[]>([])
-  const { data, isLoading } = api.bot.listSelfBot.useQuery()
+  const { data: botList, isLoading } = api.bot.listSelfBot.useQuery()
+  type BotList = typeof botList
   const mock = () => {
     const random = Math.floor(Math.random() * 100)
     const mockItem = {
@@ -38,6 +39,25 @@ export const AccountPage: NextPage = () => {
     setItems(newItems)
   }
 
+  const formatDataForTable = (data: BotList) => {
+    if (!data?.list || !data) {
+      return []
+    }
+    return data.list.map((item) => {
+      console.log(item.name)
+      return {
+        botImageUrl: item.profileImageUrl,
+        name: item.name,
+        deployOn: item.createdAt.toISOString(),
+        gamePlayTotal: 0,
+        maxSurvival: 0,
+        totalPP: 0,
+        totalSP: 0,
+        totalPoint: 0,
+      }
+    })
+  }
+
   return (
     <>
       <Head>
@@ -47,7 +67,7 @@ export const AccountPage: NextPage = () => {
       </Head>
       <main className="">
         <MainLayout heroSection={<>Account Page</>}>
-          <div className="bg-[#DBD7C6] p-4 text-black">
+          <div className="h-full bg-[#DBD7C6] p-4 text-black">
             <div className="mb-4 space-x-2">
               <span>My Survivors</span>
               <Link href="/create-survival">
@@ -60,17 +80,7 @@ export const AccountPage: NextPage = () => {
               </Link>
             </div>
             <div className="space-y-4 rounded-lg bg-[#B1A6A0] p-4 ">
-              <div className="overflow-auto text-black">hello {JSON.stringify(data?.list)}</div>
-              {data?.list.map((item, index) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.profileImageUrl} key={index} width={64} height={64} alt="avatar" />
-              ))}
-              {Array.from(Array(10).keys()).map((item) => (
-                <>
-                  <div className="mb-2 text-lg">BOT {item}</div>
-                  <SummaryTable />
-                </>
-              ))}
+              <SummaryTable data={formatDataForTable(botList)} />
             </div>
           </div>
         </MainLayout>

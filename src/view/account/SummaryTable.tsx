@@ -1,6 +1,7 @@
 import { createColumnHelper } from '@tanstack/table-core'
 import { StandardTable } from '../../components/StandardTable'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type SummaryDataProps = {
   botImageUrl: string
@@ -32,7 +33,7 @@ const columns = [
   columnHelper.accessor('botImageUrl', {
     cell: (info) => (
       <div className="flex h-full w-16 justify-center">
-        <img className=" object-cover" src={info.getValue() || ''} width={128} height={128} alt="botimage" />
+        <Image className=" object-cover" src={info.getValue() || ''} width={128} height={128} alt="botimage" />
       </div>
     ),
     header: () => <span></span>,
@@ -70,8 +71,12 @@ const columns = [
     cell: (info) => (
       <>
         <div className="flex flex-col">
-          <div>View code</div>
-          <div>Game history</div>
+          <div className="bg-[#F6D666] text-center">
+            <Link href="/">View code</Link>
+          </div>
+          <div className="bg-[#EAA040] text-center">
+            <Link href="/">Game history</Link>
+          </div>
         </div>
       </>
     ),

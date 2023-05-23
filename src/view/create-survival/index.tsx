@@ -69,7 +69,7 @@ export const CreateSurvivalPage: NextPage = () => {
                 <button className="rounded-lg border bg-black p-2 text-white">Back</button>
               </Link>
             </div>
-            <div className="uppercase">Create new survival</div>
+            <div className="">Create new survival</div>
           </div>
           {/* content */}
           <div className="p-4 pb-16">
